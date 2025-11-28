@@ -1,204 +1,762 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Zap Dashboard</title>
-<link rel="stylesheet" href="dashboard.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clify - YouTube Blocker</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-  <header class="header">
-    <div class="brand"><span class=""></span><span id="brandName">Zap</span><span class="ver" id="versionLabel"></span></div>
-    <div class="controls">
-      <select id="lang" class="select"></select>
-      <button id="mode" class="switch" title="Toggle theme">🌙</button>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="logo-text">Clify</div>
+                </a>
+                <div class="version-badge" id="versionLabel">v7.0.0</div>
+            </div>
+            <div class="header-right">
+                <!-- Admin Notifications -->
+                <div class="notification-icon-header">
+                    <div class="notification-bell" id="notificationBell" title="Admin Messages">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge" id="notificationBadge">0</span>
+                    </div>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <div class="notification-header">
+                            <h4>Notifications</h4>
+                            <button class="mark-all-read" id="markAllRead" title="Mark all messages as read">Mark all read</button>
+                        </div>
+                        <div class="notification-list" id="notificationList">
+                            <!-- Messages will appear here -->
+                        </div>
+                        <div class="notification-footer">
+                            <a href="https://t.me/Clifybydd" target="_blank" class="telegram-link">
+                                <i class="fab fa-telegram"></i>
+                                <span>Join Telegram Channel</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="control-btn" id="refreshBtn">
+                    <i class="fas fa-sync-alt"></i>
+                    <span id="refresh-text">Refresh</span>
+                </button>
+                <select class="control-btn" id="lang">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="pt">Português</option>
+                    <option value="ar">العربية</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="ru">Русский</option>
+                    <option value="zh">中文</option>
+                </select>
+                <button class="control-btn" id="mode">
+                    <i class="fas fa-moon"></i>
+                    <span id="theme-text">Theme</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <nav class="tabs">
+                <a href="#" class="tab active" data-tab="dash">
+                    <i class="fas fa-chart-bar"></i>
+                    <span id="tab-dash">Dashboard</span>
+                </a>
+                <a href="#" class="tab" data-tab="blocked">
+                    <i class="fas fa-ban"></i>
+                    <span id="tab-blocked">Blocked Videos</span>
+                    <span class="tab-badge" id="blockedCount">0</span>
+                </a>
+                <a href="#" class="tab" data-tab="keywords">
+                    <i class="fas fa-key"></i>
+                    <span id="tab-keywords">Keywords</span>
+                </a>
+                <a href="#" class="tab" data-tab="enhanced">
+                    <i class="fas fa-star"></i>
+                    <span>Clify Extra</span>
+                </a>
+                <a href="#" class="tab" data-tab="support">
+                    <i class="fas fa-life-ring"></i>
+                    <span id="tab-support">Support</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Dashboard Section -->
+        <section id="dash" class="section active">
+            <div class="section-header">
+                <h1 id="welcome-title">Welcome to Clify! ⚡</h1>
+                <p id="welcome-subtitle">Take control of your YouTube experience by blocking unwanted content automatically</p>
+            </div>
+
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="welcome-content">
+                    <div class="welcome-stats">
+                        <div class="welcome-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="kpi_today">0</div>
+                                <div class="stat-label" id="stat-today">Today's Blocks</div>
+                            </div>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="kpi_total">0</div>
+                                <div class="stat-label" id="stat-total">Total Blocked</div>
+                            </div>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="blockingRate">0%</div>
+                                <div class="stat-label" id="stat-efficiency">Efficiency</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Grid -->
+            <div class="analytics-grid">
+                <div class="analytics-main">
+                    <!-- Activity Chart -->
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title" id="activity-title">Activity</h3>
+                                <p class="card-subtitle" id="activity-subtitle">Last 30 days</p>
+                            </div>
+                        </div>
+                        <div class="activity-bars" id="activityBars">
+                            <!-- Activity bars will be generated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-keyboard"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="activeKeywords">0</div>
+                                <div class="stat-label" id="stat-keywords">Active Keywords</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="manualBlocksCount">0</div>
+                                <div class="stat-label" id="stat-manual">Manual Blocks (Clify Button)</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-astronaut"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="autoBlocksCount">0</div>
+                                <div class="stat-label" id="stat-auto">Blocked By Keyword</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="shortsBlocksCount">0</div>
+                                <div class="stat-label" id="stat-shorts">Shorts Blocked</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-arrow-down-a-z"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="langBlocksCount">0</div>
+                                <div class="stat-label" id="stat-lang">Language Blocks</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-arrow-pointer"></i>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="adsSkippedCount">0</div>
+                                <div class="stat-label">Ads Skipped</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-card">
+                    <div class="card-header">
+                        <h3 class="card-title" id="recent-title">Recently Blocked</h3>
+                        <button class="control-btn small" onclick="switchToTab('blocked')">
+                            <span id="view-all-btn">View All</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="recent-list" id="recentList">
+                        <!-- Recent items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blocked Videos Section -->
+        <section id="blocked" class="section">
+            <div class="section-header">
+                <h1 id="blocked-title">Blocked Videos</h1>
+                <p id="blocked-subtitle">Manage all videos you've blocked from your YouTube feed</p>
+            </div>
+
+            <!-- Capacity Warning -->
+            <div class="capacity-display" id="capacityDisplay">
+                <!-- Capacity info will be populated by JavaScript -->
+            </div>
+
+            <!-- Enhanced Search Interface -->
+            <div class="controls-bar">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="search" class="search-input" 
+                               placeholder="Search by title, ID, reason, or date...">
+                        <button class="clear-search" id="clearSearch">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="search-suggestions" id="searchSuggestions"></div>
+                    </div>
+                </div>
+                
+                <div class="filter-controls">
+                    <select id="reasonFilter" class="filter-select">
+                        <option value="all" id="filter-all">All Reasons</option>
+                        <option value="manual" id="filter-manual">Manual Block</option>
+                        <option value="keyword" id="filter-keyword">Keyword Match</option>
+                        <option value="shorts" id="filter-shorts">Shorts</option>
+                        <option value="language" id="filter-language">Language</option>
+                    </select>
+                    
+                    <select id="sortFilter" class="filter-select">
+                        <option value="newest" id="sort-newest">Newest First</option>
+                        <option value="oldest" id="sort-oldest">Oldest First</option>
+                        <option value="title" id="sort-title">Title A-Z</option>
+                        <option value="reason" id="sort-reason">By Reason</option>
+                    </select>
+                    
+                    <select id="dateRangeFilter" class="filter-select">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">Past Week</option>
+                        <option value="month">Past Month</option>
+                        <option value="year">Past Year</option>
+                    </select>
+                    
+                    <div class="search-results-info" id="resultsInfo">
+                        <span class="results-count" id="resultsCount">0</span>
+                        <span class="results-text">videos</span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn secondary" id="btnExport">
+                        <i class="fas fa-download"></i>
+                        <span id="export-btn">Export</span>
+                    </button>
+                    <button class="action-btn danger" id="btnUnblockAll">
+                        <i class="fas fa-trash"></i>
+                        <span id="clear-all-btn">Clear All</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Filters -->
+            <div class="quick-filters">
+                <div class="quick-filter" data-filter="date" data-value="today">
+                    <i class="fas fa-calendar-day"></i> Today
+                </div>
+                <div class="quick-filter" data-filter="reason" data-value="manual">
+                    <i class="fas fa-hand-pointer"></i> Manual Blocks
+                </div>
+                <div class="quick-filter" data-filter="reason" data-value="shorts">
+                    <i class="fas fa-mobile-alt"></i> Shorts
+                </div>
+                <div class="quick-filter" data-filter="reason" data-value="keyword">
+                    <i class="fas fa-key"></i> Keyword Blocks
+                </div>
+            </div>
+
+            <!-- Advanced Search -->
+            <div class="advanced-search collapsed" id="advancedSearch">
+                <div class="advanced-search-header">
+                    <div class="advanced-search-title">
+                        <i class="fas fa-sliders-h"></i>
+                        Advanced Search
+                    </div>
+                    <button class="advanced-search-toggle" id="advancedSearchToggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="advanced-filters">
+                    <div class="filter-group">
+                        <label class="filter-label">Date Range</label>
+                        <select id="advancedDateRangeFilter" class="filter-select">
+                            <option value="all">All Time</option>
+                            <option value="today">Today</option>
+                            <option value="week">Past Week</option>
+                            <option value="month">Past Month</option>
+                            <option value="year">Past Year</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Block Reason</label>
+                        <select id="advancedReasonFilter" class="filter-select">
+                            <option value="all">All Reasons</option>
+                            <option value="manual">Manual Block</option>
+                            <option value="keyword">Keyword Match</option>
+                            <option value="shorts">Shorts</option>
+                            <option value="language">Language</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Sort By</label>
+                        <select id="advancedSortFilter" class="filter-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="title">Title A-Z</option>
+                            <option value="reason">By Reason</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Tips -->
+            <div class="search-tips">
+                <div class="search-tips-title">
+                    <i class="fas fa-idea"></i> Pro Tips
+                </div>
+                <ul class="search-tips-list">
+                    <li>  1.Search by video title, ID, reason, or date.  2.Use quotes for exact matches: "exact phrase".  3. Filter by time range using quick filters. 4.Click suggestions for faster searching.</li>
+                </ul>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container">
+                <table class="videos-table">
+                    <thead>
+                        <tr>
+                            <th class="col-title" id="col-title">Video Title</th>
+                            <th class="col-id" id="col-id">Video ID</th>
+                            <th class="col-reason" id="col-reason">Reason</th>
+                            <th class="col-date" id="col-date">Date Blocked</th>
+                            <th class="col-actions" id="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videosTableBody">
+                        <!-- Table rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+                
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p id="loading-text">Loading your blocked videos...</p>
+                </div>
+                
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">
+                        <i class="fas fa-inbox"></i>
+                    </div>
+                    <h3 id="empty-title">No videos blocked yet</h3>
+                    <p id="empty-subtitle">Start cleaning up your YouTube experience by blocking unwanted videos</p>
+                    <button class="action-btn primary" onclick="switchToTab('keywords')">
+                        <i class="fas fa-plus"></i>
+                        <span id="empty-action">Add Keywords for Auto-Blocking</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Keywords Section -->
+        <section id="keywords" class="section">
+            <div class="section-header">
+                <h1 id="keywords-title">Keyword Manager</h1>
+                <p id="keywords-subtitle">Automatically block videos containing specific keywords or phrases</p>
+            </div>
+
+            <div class="keywords-container">
+                <div class="keywords-editor">
+                    <textarea id="kw" class="keywords-textarea" placeholder="Enter keywords or phrases (one per line or separated by commas)&#10;Example:&#10;react video&#10;unboxing&#10;prank challenge"></textarea>
+                    
+                    <div class="keywords-actions">
+                        <button class="action-btn primary" id="saveKw">
+                            <i class="fas fa-save"></i>
+                            <span id="save-keywords">Save Keywords</span>
+                        </button>
+                        <button class="action-btn secondary" id="clearKw">
+                            <i class="fas fa-broom"></i>
+                            <span id="clear-keywords">Clear All</span>
+                        </button>
+                    </div>
+                    
+                    <div class="keywords-stats">
+                        <div class="stat-item">
+                            <div class="stat-label" id="keywords-count-label">Keywords Count:</div>
+                            <div class="stat-value" id="keywordCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label" id="keywords-format-label">Format:</div>
+                            <div class="stat-value">One per line</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="keywords-help">
+                    <h4>
+                        <i class="fas fa-question-circle"></i>
+                        <span id="help-title">How to use keywords</span>
+                    </h4>
+                    <ul>
+                        <li id="help-line1">Enter one keyword per line or separate with commas</li>
+                        <li id="help-line2">Use specific phrases for better accuracy</li>
+                        <li id="help-line3">Keywords are case-insensitive</li>
+                        <li id="help-line4">Supports multiple languages: English, Arabic, Hindi, Bangla, etc.</li>
+                        <li id="help-line5">Use pipe | for synonyms: movie|فيلم|फिल्म|সিনেমা</li>
+                        <li id="help-line6">Maximum 2000 keywords supported</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Features Section -->
+        <section id="enhanced" class="section">
+            <div class="section-header">
+                <h1>Clify Extra Features</h1>
+                <p>Enhanced YouTube experience with uBlock Origin Lite integration</p>
+            </div>
+
+            <!-- Enhanced Features Grid -->
+            <div class="features-grid">
+                <!-- Shorts Removal -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="fas fa-mobile-alt"></i> Shorts Removal</h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleShorts" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description">Automatically remove all YouTube Shorts from your feed, navigation, and search results</p>
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="shortsBlocked">0</span>
+                            <span class="stat-label">Shorts Removed</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Annotation Removal -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="fas fa-ban"></i> Annotation & Card Removal</h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleAnnotations" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description">Automatically remove all annotations, info cards, and end screens from videos</p>
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="annotationsRemoved">0</span>
+                            <span class="stat-label">Removed</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ad Skipping - Integrated with uBlock -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="fas fa-shield-alt"></i> Ad Block Integration</h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleAdIntegration" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description">Integrated with uBlock Origin Lite for comprehensive ad blocking</p>
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-value" id="ublockStatus">Active</span>
+                            <span class="stat-label">uBlock Status</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Playback Controls -->
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="fas fa-play-circle"></i> Playback Enhancements</h4>
+                    </div>
+                    <div class="playback-controls">
+                        <div class="control-group">
+                            <label for="playbackSpeed">Playback Speed:</label>
+                            <select id="playbackSpeed">
+                                <option value="0.25">0.25x</option>
+                                <option value="0.5">0.5x</option>
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1x (Normal)</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="1.75">1.75x</option>
+                                <option value="2">2x</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleTheaterMode">
+                                <span class="checkmark"></span>
+                                Always use theater mode
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleAutoPlay">
+                                <span class="checkmark"></span>
+                                Disable auto-play next video
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- uBlock Integration Info -->
+            <div class="analytics-card" style="margin-top: 24px;">
+                <div class="card-header">
+                    <h3 class="card-title">uBlock Origin Lite Integration</h3>
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                    Clify works seamlessly with uBlock Origin Lite for comprehensive ad blocking. 
+                    Make sure uBlock Origin Lite is installed and enabled for the best experience.
+                </p>
+                <div class="action-buttons">
+                    <button class="action-btn secondary" onclick="window.open('https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcpbblcofd?hl=en', '_blank')">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span>Get uBlock Origin Lite</span>
+                    </button>
+                    <button class="action-btn primary" onclick="checkUblockStatus()">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Check uBlock Status</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="feature-actions">
+                <button class="action-btn primary" id="saveEnhancedFeatures">
+                    <i class="fas fa-save"></i>
+                    <span>Save All Settings</span>
+                </button>
+                <button class="action-btn secondary" id="resetEnhancedFeatures">
+                    <i class="fas fa-undo"></i>
+                    <span>Reset to Defaults</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="section">
+            <div class="section-header">
+                <h1 id="support-title">Support & Help</h1>
+                <p id="support-subtitle">Get help, report issues, and learn how to use Clify effectively</p>
+            </div>
+
+            <div class="support-grid">
+                <!-- Contact Form -->
+                <div class="support-card contact-form">
+                    <h3 id="contact-title">Contact Support</h3>
+                    <p id="contact-subtitle">Having issues or suggestions? We're here to help you get the most out of Clify.</p>
+                    
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" id="name-label">Your Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" id="email-label">Your Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="category" id="category-label">Issue Category *</label>
+                            <select id="category" name="category" required>
+                                <option value="bug" id="category-bug">Bug Report</option>
+                                <option value="feature" id="category-feature">Feature Request</option>
+                                <option value="help" id="category-help">Help Needed</option>
+                                <option value="suggestion" id="category-suggestion">Suggestion</option>
+                                <option value="other" id="category-other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" id="message-label">Your Message *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Please describe your issue or suggestion in detail..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="action-btn primary" id="submitBtn">
+                            <span class="btn-text" id="send-message">Send Message</span>
+                            <span class="btn-loading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span id="sending-message">Sending...</span>
+                            </span>
+                        </button>
+                        
+                        <div class="form-status" id="formStatus"></div>
+                    </form>
+                </div>
+                
+                <!-- Help Resources -->
+                <div class="support-card">
+                    <h3 id="resources-title">Help Resources</h3>
+                    <div class="resource-list">
+                        <div class="resource-item" data-resource="faq">
+                            <div class="resource-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h4 id="resource-faq">FAQ & Troubleshooting</h4>
+                                <p id="resource-faq-desc">Common questions and solutions</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-resource="guide">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h4 id="resource-guide">User Guide</h4>
+                                <p id="resource-guide-desc">Learn how to use all features</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-resource="bugs">
+                            <div class="resource-icon">
+                                <i class="fas fa-bug"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h4 id="resource-bugs">Report Bugs</h4>
+                                <p id="resource-bugs-desc">Found an issue? Let us know</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item" data-resource="features">
+                            <div class="resource-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="resource-content">
+                                <h4 id="resource-features">Suggest Features</h4>
+                                <p id="resource-features-desc">Share your ideas for improvement</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- About -->
+                <div class="support-card">
+                    <h3 id="about-title">About Clify</h3>
+                    <div class="about-content">
+                        <div class="version-info">
+                            <strong id="version-text">Version:</strong>
+                            <span id="footerVersion">v7.0.0</span>
+                        </div>
+                        <p id="about-description">Clify helps you stay focused by hiding distracting YouTube content. It works locally in your browser and respects your privacy - no data is sent to external servers.</p>
+                        
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span id="feature-privacy">Privacy First</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-bolt"></i>
+                                <span id="feature-fast">Lightning Fast</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-sync"></i>
+                                <span id="feature-realtime">Real-time Blocking</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Shorts Removal</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>uBlock Integration</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link" id="link-docs">
+                            <i class="fas fa-book"></i>
+                            <span>Documentation</span>
+                        </a>
+                        <a href="#" class="social-link" id="link-website">
+                            <i class="fas fa-globe"></i>
+                            <span>Website</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p id="footer-made">Made with ❤️ for a focused YouTube experience</p>
+            <p class="copyright">&copy; 2025 Clify - YouTube Content Blocker. All rights reserved.</p>
+            <p class="disclaimer">This extension is not affiliated with YouTube or Google.</p>
+        </footer>
     </div>
-  </header>
 
-  <nav class="nav" id="nav">
-    <button class="tab active" data-tab="dash">Dashboard</button>
-    <button class="tab" data-tab="blocked">Blocked</button>
-    <button class="tab" data-tab="insights">Insights</button>
-    <button class="tab" data-tab="keywords">Keywords</button>
-    <button class="tab" data-tab="about">About</button>
-    <button class="tab" data-tab="license">License</button>
-    <button class="tab" data-tab="hire">Hire Me</button>
-    <button class="tab" data-tab="changelog">Changelog</button>
-    <button class="tab" data-tab="contactus">Contact</button>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" title="Back to Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
-  </nav>
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
 
-  <main>
-    <section id="dash" class="section active">
-      <div class="grid">
-        <div class="card"><h3 id="t_today">Today's Zaps</h3><div class="kpi" id="kpi_today">0</div><div class="muted small" id="t_today_hint">Videos hidden today</div></div>
-        <div class="card"><h3 id="t_total">Total Zaps</h3><div class="kpi" id="kpi_total">0</div><div class="muted small" id="t_total_hint">All-time blocked</div></div>
-        <div class="card"><h3 id="t_recent">Recently Blocked</h3><div id="recent_list" class="small muted">No data yet</div></div>
-      </div>
-      <div class="card"><h3 id="t_trend">7-Day trend</h3><div class="canvas-wrap"><canvas id="trend" width="800" height="180"></canvas></div></div>
-      <div class="card tip">
-        <div class="row">
-          <div>
-            <h4>Demo Data</h4>
-            <p class="muted small">Add sample blocked items to test charts & tables (testing only).</p>
-          </div>
-          <button id="demo" class="btn ghost">Generate Demo Data</button>
-        </div>
-      </div>
-    </section>
+    <!-- Floating Action Button -->
+    <button class="fab pulse" id="quickActions" title="Quick Actions">
+        <i class="fas fa-bolt"></i>
+    </button>
 
-    <section id="insights" class="section">
-      <div class="card"><h3>Insights Chart</h3><div class="canvas-wrap"><canvas id="breakdown" width="800" height="180"></canvas></div></div>
-    </section>
-
-    <section id="blocked" class="section">
-      <div class="card">
-        <div class="row">
-          <h3>Blocked Videos</h3>
-          <div class="row right">
-            <input id="search" placeholder="Search title or ID" class="select" />
-            <button id="btnExport" class="btn ghost">Export JSON</button>
-            <button id="btnUnblockAll" class="btn danger">Unblock All</button>
-          </div>
-        </div>
-        <table class="table" id="blockedTable"><thead><tr><th>Title</th><th>Video ID</th><th>Date</th><th>Reason</th><th>Action</th></tr></thead><tbody></tbody></table>
-      </div>
-    </section>
-
-    <section id="keywords" class="section">
-      <div class="card">
-        <h3>Bad Keywords</h3>
-        <p class="muted small">One per line. Matching videos will auto-hide.</p>
-        <textarea id="kw" rows="8" class="textarea"></textarea>
-        <div class="row"><button id="saveKw" class="btn">Save Keywords</button></div>
-      </div>
-    </section>
-
-    <section id="hire" class="section">
-      <div class="card">
-        <h3>Hire Me — Graphic Designer</h3>
-        <p class="muted">Branding, UI/UX, icons & motion. Let's make your product standout.</p>
-        <div class="row">
-          <a class="btn" href="mailto:hiredipto@gmail.com">Email Me</a>
-          <a class="btn ghost" href="https://www.behance.net/diptodesign" target="_blank">Portfolio</a>
-        </div>
-      </div>
-    </section>
-
-   <section id="about" class="section">
-  <div class="card">
-    <h3>About Zap</h3>
-    <p class="muted">
-      <strong>Zap</strong> is a Chrome extension that helps you take back control of YouTube by 
-      <span class="highlight">hiding distracting or unwanted videos</span> automatically.
-    </p>
-    <ul class="features-list">
-      <li>⚡ Block by <strong>keywords</strong>.</li>
-      <li>📊 Get <strong>insights</strong> with charts & daily stats.</li>
-      <li>🌍 Use Zap in <strong>12+ languages</strong>.</li>
-      <li>🌙 Switch between <strong>dark & light modes</strong>.</li>
-      <li>🛠 100% free, open, and customizable.</li>
-    </ul>
-    <p class="muted small">
-      Originally started in <strong>2025</strong> as a simple blocker, Zap has grown into a 
-      full-featured productivity tool used worldwide.
-    </p>
-    <div class="row">
-      <a href="https://github.com/diptodesign" target="_blank" class="btn ghost">🌐 Project Page</a>
-      <a href="mailto:hiredipto@gmail.com" class="btn">✉️ Contact</a>
-    </div>
-  </div>
-</section>
-
-
-    <section id="license" class="section">
-      <div class="card"><h3>License</h3><p class="muted small">Copyright © 2025 Zap by Dipto Design LLC.
-</br>
-</br>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the “Software”), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-The Software is provided “as is”, without warranty of any kind, express or
-implied, including but not limited to the warranties of merchantability,
-fitness for a particular purpose and noninfringement.
-
-In no event shall the authors or copyright holders be liable for any claim,
-damages or other liability, whether in an action of contract, tort or
-otherwise, arising from, out of or in connection with the Software or the use
-or other dealings in the Software.</p></div>
-    </section>
-
-<section id="contact" class="section">
-  <div class="card">
-    <h3>Contact & Feature Requests</h3>
-    <p class="muted">
-      Have feedback, found a bug, or want to suggest a new feature? We’d love to hear from you.
-    </p>
-    <form id="contactForm" class="contact-form">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" class="select" placeholder="Enter your name" required />
-
-      <label for="email">Your Email</label>
-      <input type="email" id="email" class="select" placeholder="Enter your email" required />
-
-      <label for="message">Message / Feature Request</label>
-      <textarea id="message" rows="5" class="textarea" placeholder="Type your message here..." required></textarea>
-
-      <div class="row">
-        <button type="submit" class="btn">Send</button>
-        <button type="reset" class="btn ghost">Clear</button>
-      </div>
-    </form>
-    <p class="muted small">Or email us directly at <a href="mailto:sayhidipto@gmail.com">sayhidipto@gmail.com</a></p>
-  </div>
-</section>
-
-
-   <section id="changelog" class="section">
-  <div class="card">
-    <h3>Changelog</h3>
-    <ul class="timeline">
- <li><span class="badge new">NEW</span> <strong>v4.3.2</strong> — Stability fixes (background worker), safe storage calls, context error patches.</li></br>
-
-      <li><span class="badge improve">IMPROVED</span> <strong>v4.3.1</strong> — Multi-language support (11 languages), dark/light theme toggle, fully wired nav tabs, Insights charts, demo data generator.</li>
-</br>
-      <li><span class="badge improve">IMPROVED</span> <strong>v4.3.0</strong> — Redesigned dashboard with card layout, version label, stats, keywords manager.</li></br>
-
-
-      <li><span class="badge fix">FIXED</span> <strong>v4.2.x</strong> — Bug fixes on blocked videos page, export/unblock actions, added channel/keyword blocking, Insights per-day stats.</li>
-</br>
-      <li><span class="badge improve">IMPROVED</span> <strong>v4.1.x</strong> — Added navigation pages (Dashboard, Blocked, Insights, Hire Me, License, Changelog).</li>
-</br>
-
-      <li><span class="badge new">NEW</span> <strong>v4.0</strong> — Introduced popup-free Dashboard tab with charts and data visualization.</li>
-</br>
-
-      <li><span class="badge fix">FIXED</span> <strong>v3.x</strong> — Stability fixes, better blocking logic, faster load performance.</li>
-</br>
-
-      <li><span class="badge improve">IMPROVED</span> <strong>v2.x</strong> — UI improvements, added stats tracking, partial localization support.</li></br>
-      <li><span class="badge new">NEW</span> <strong>v1.0</strong> — First release of Zap! Basic YouTube video blocking with "Zap" button.</li>
-</br>
-
-      <li><span class="badge">INIT</span> <strong>v0.1</strong> — Project created, experimental hide button as ShhhTube.</li>
-    </ul>
-  </div>
-</section>
-
-  </main>
-
-  <footer class="footer">© 2025 Zap by Dipto Design LLC • <span id="footerVersion">v0.0.0</span></footer>
-</div>
-
-<script src="dashboard.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
