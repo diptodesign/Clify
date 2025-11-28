@@ -1,6 +1,6 @@
-MIT License
+# MIT License with Donation Clause
 
-Copyright (c) 2025 Dipto Das
+Copyright (c) 2025 Clify
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,42 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Donation Support
+
+This software is provided free of charge as open source. If you find this project 
+useful and would like to support its continued development, we welcome donations.
+
+### How to Donate
+
+You can support the Clify project through:
+
+- **GitHub Sponsors**: [Sponsor us on GitHub](https://github.com/sponsors/diptodesign)
+- **Buy Me a Coffee**: [buymeacoffee.com/diptodesign100](https://buymeacoffee.com/diptodesign100)
+- **PayPal**: [paypal.me/diptodesign98](https://paypal.me/diptodesign98)
+- **Cryptocurrency**:
+  - Bitcoin: `your-btc-address`
+  - Ethereum: `your-eth-address`
+
+### What Donations Support
+
+Your donations help with:
+- Server costs for synchronization features
+- Continuous development and maintenance
+- Testing equipment and services
+- Supporting the open-source community
+
+## Attribution
+
+While not required, we appreciate attribution through:
+- Linking back to our GitHub repository
+- Mentioning Clify in your project's credits
+- Sharing your experience with others
+
+## Contributing
+
+We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for details.
+
+---
+
+*Thank you for using Clify! Your support helps make this project better for everyone.*
