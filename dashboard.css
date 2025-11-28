@@ -2652,6 +2652,38 @@ input:checked + .toggle-slider:before {
 .back-to-top.show + .fab {
     bottom: 90px;
 }
+/* RTL Support */
+[dir="rtl"] {
+    text-align: right;
+    direction: rtl;
+}
+
+[dir="rtl"] .header {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .header-left {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .logo {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .header-right {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .control-btn {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .tabs {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .tab {
+    flex-direction: row-reverse;
 
 /* Responsive Design */
 @media (max-width: 1200px) {
