@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clify - YouTube Blocker</title>
     <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -15,7 +15,7 @@
             <div class="header-left">
                 <a href="#" class="logo">
                     <div class="logo-icon">
-                        <i class="fas fa-bolt"></i>
+                        <i class="fas fa-magnet"></i>
                     </div>
                     <div class="logo-text">Clify</div>
                 </a>
@@ -39,7 +39,6 @@
                         <div class="notification-footer">
                             <a href="https://t.me/Clifybydd" target="_blank" class="telegram-link">
                                 <i class="fab fa-telegram"></i>
-                                <span>Join Telegram Channel</span>
                             </a>
                         </div>
                     </div>
@@ -49,24 +48,59 @@
                     <i class="fas fa-sync-alt"></i>
                     <span id="refresh-text">Refresh</span>
                 </button>
-                <select class="control-btn" id="lang">
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
-                    <option value="de">Deutsch</option>
-                    <option value="hi">हिन्दी</option>
-                    <option value="ja">日本語</option>
-                    <option value="ko">한국어</option>
-                    <option value="pt">Português</option>
-                    <option value="ar">العربية</option>
-                    <option value="bn">বাংলা</option>
-                    <option value="ru">Русский</option>
-                    <option value="zh">中文</option>
-                </select>
+              <select class="control-btn" id="lang">
+    <option value="en">English</option>
+    <option value="es">Español</option>
+    <option value="fr">Français</option>
+    <option value="de">German</option>
+    <option value="it">Italiano</option>
+    <option value="pt">Português</option>
+    <option value="zh">中文</option>
+    <option value="ja">日本語</option>
+    <option value="ko">한국어</option>
+    <option value="ru">Русский</option>
+    <option value="th">ไทย</option>
+    <option value="id">Indonesian</option>
+     <option value="bn">বাংলা</option>
+    <option value="ar">العربية</option>
+     <option value="no">Norsk</option>
+   <option value="he">עברית</option>
+    <option value="tr">Türkçe</option>
+    <option value="pl">Polski</option>
+    <option value="hu">Magyar</option>
+    <option value="nl">Nederlands</option>
+    <option value="vi">Tiếng Việt</option>
+    <option value="uk">Українська</option>
+    <option value="cs">Čeština</option>
+     <option value="fi">Suomi</option>
+    <option value="da">Dansk</option>
+    <option value="sv">Svenska</option>
+    <option value="ms">Bahasa Malaysia</option>
+    <option value="ro">Română</option>
+    <option value="tl">Filipino</option>
+    <option value="sw">Kiswahili</option>
+    <option value="af">Afrikaans</option>
+     <option value="hi">हिन्दी</option>
+     <option value="ur">اردو</option>
+    <option value="ta">தமிழ்</option>
+    <option value="te">తెలుగు</option>
+    <option value="ml">മലയാളം</option>
+    <option value="kn">ಕನ್ನಡ</option>
+    <option value="as">অসমীয়া</option>
+    <option value="or">ଓଡ଼ିଆ</option>
+    <option value="ne">नेपाली</option>
+</select>
                 <button class="control-btn" id="mode">
                     <i class="fas fa-moon"></i>
                     <span id="theme-text">Theme</span>
                 </button>
+                
+                <!-- Support button moved here from tabs -->
+                <button class="control-btn" id="supportHeaderBtn">
+                    <i class="fas fa-life-ring"></i>
+                    <span id="support-header-text">Support</span>
+                </button>
+                
             </div>
         </header>
 
@@ -90,10 +124,7 @@
                     <i class="fas fa-star"></i>
                     <span>Clify Extra</span>
                 </a>
-                <a href="#" class="tab" data-tab="support">
-                    <i class="fas fa-life-ring"></i>
-                    <span id="tab-support">Support</span>
-                </a>
+                <!-- Removed Support tab from here -->
             </nav>
         </div>
 
@@ -367,7 +398,39 @@
                     <li>  1.Search by video title, ID, reason, or date.  2.Use quotes for exact matches: "exact phrase".  3. Filter by time range using quick filters. 4.Click suggestions for faster searching.</li>
                 </ul>
             </div>
-
+<!-- Pagination -->
+<div class="pagination-container" id="paginationContainer">
+    <div class="pagination-info" id="paginationInfo">
+        Showing <span id="currentRange">0-0</span> of <span id="totalVideos">0</span> videos
+    </div>
+    <div class="pagination-controls">
+        <button class="pagination-btn" id="firstPage" title="First page">
+            <i class="fas fa-angle-double-left"></i>
+        </button>
+        <button class="pagination-btn" id="prevPage" title="Previous page">
+            <i class="fas fa-angle-left"></i>
+        </button>
+        <div class="page-numbers" id="pageNumbers">
+            <!-- Page numbers will be generated dynamically -->
+        </div>
+        <button class="pagination-btn" id="nextPage" title="Next page">
+            <i class="fas fa-angle-right"></i>
+        </button>
+        <button class="pagination-btn" id="lastPage" title="Last page">
+            <i class="fas fa-angle-double-right"></i>
+        </button>
+    </div>
+    <div class="pagination-options">
+        <span>Show:</span>
+        <select id="pageSizeSelect" class="page-size-select">
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+        <span>per page</span>
+    </div>
+</div>
             <!-- Table -->
             <div class="table-container">
                 <table class="videos-table">
@@ -384,6 +447,7 @@
                         <!-- Table rows will be populated by JavaScript -->
                     </tbody>
                 </table>
+
                 
                 <!-- Loading State -->
                 <div class="loading-state" id="loadingState">
@@ -402,6 +466,40 @@
                         <i class="fas fa-plus"></i>
                         <span id="empty-action">Add Keywords for Auto-Blocking</span>
                     </button>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination-container" id="paginationContainer" style="display: none;">
+                <div class="pagination-info" id="paginationInfo">
+                    Showing <span id="currentRange">0-0</span> of <span id="totalVideos">0</span> videos
+                </div>
+                <div class="pagination-controls">
+                    <button class="pagination-btn" id="firstPage" title="First page">
+                        <i class="fas fa-angle-double-left"></i>
+                    </button>
+                    <button class="pagination-btn" id="prevPage" title="Previous page">
+                        <i class="fas fa-angle-left"></i>
+                    </button>
+                    <div class="page-numbers" id="pageNumbers">
+                        <!-- Page numbers will be generated dynamically -->
+                    </div>
+                    <button class="pagination-btn" id="nextPage" title="Next page">
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                    <button class="pagination-btn" id="lastPage" title="Last page">
+                        <i class="fas fa-angle-double-right"></i>
+                    </button>
+                </div>
+                <div class="pagination-options">
+                    <span>Show:</span>
+                    <select id="pageSizeSelect" class="page-size-select">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>per page</span>
                 </div>
             </div>
         </section>
@@ -448,10 +546,10 @@
                     <ul>
                         <li id="help-line1">Enter one keyword per line or separate with commas</li>
                         <li id="help-line2">Use specific phrases for better accuracy</li>
-                        <li id="help-line3">Keywords are case-insensitive</li>
+                        <li id="help-line3">Keywords are case-insensitive.</li>
                         <li id="help-line4">Supports multiple languages: English, Arabic, Hindi, Bangla, etc.</li>
                         <li id="help-line5">Use pipe | for synonyms: movie|فيلم|फिल्म|সিনেমা</li>
-                        <li id="help-line6">Maximum 2000 keywords supported</li>
+                        <li id="help-line6">Maximum 5000+ keywords supported</li>
                     </ul>
                 </div>
             </div>
@@ -589,6 +687,252 @@
                 </button>
             </div>
         </section>
+<!-- Donation Section -->
+<section id="donate" class="section">
+    <div class="section-header">
+        <h1>Support Clify Development</h1>
+        <p>Help keep this open-source project free and continuously improved</p>
+    </div>
+
+    <div class="donation-grid">
+        <!-- One-time Donation -->
+        <div class="donation-card">
+            <div class="donation-header">
+                <div class="donation-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>One-time Support</h3>
+            </div>
+            <p class="donation-description">
+                Make a one-time contribution to support Clify's development and server costs.
+            </p>
+            
+            <div class="donation-amounts">
+                <div class="amount-option active" data-amount="5">
+                    <span class="amount">$5</span>
+                    <span class="local-amount">≈ ৳550</span>
+                </div>
+                <div class="amount-option" data-amount="10">
+                    <span class="amount">$10</span>
+                    <span class="local-amount">≈ ৳1,100</span>
+                </div>
+                <div class="amount-option" data-amount="25">
+                    <span class="amount">$25</span>
+                    <span class="local-amount">≈ ৳2,750</span>
+                </div>
+                <div class="custom-amount">
+                    <input type="number" id="customAmount" placeholder="Custom amount" min="1">
+                    <span class="currency">USD</span>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <h4>International Payments</h4>
+                <div class="payment-options">
+                    <div class="payment-option active" data-method="paypal">
+                        <i class="fab fa-paypal"></i>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="payment-option" data-method="stripe">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Stripe</span>
+                    </div>
+                    <div class="payment-option" data-method="payoneer">
+                        <i class="fas fa-globe"></i>
+                        <span>Payoneer</span>
+                    </div>
+                </div>
+
+                <h4>Bangladeshi Payments</h4>
+                <div class="payment-options local">
+                    <div class="payment-option" data-method="bkash">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>bKash</span>
+                    </div>
+                    <div class="payment-option" data-method="nagad">
+                        <i class="fas fa-wallet"></i>
+                        <span>Nagad</span>
+                    </div>
+                    <div class="payment-option" data-method="rocket">
+                        <i class="fas fa-rocket"></i>
+                        <span>Rocket</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="action-btn primary donation-btn" id="oneTimeDonate">
+                <i class="fas fa-gift"></i>
+                <span>Continue to Payment</span>
+            </button>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="donation-card">
+            <div class="payment-details" id="paymentDetails">
+                <div class="payment-header">
+                    <h4>Payment Information</h4>
+                    <p>Select a payment method to see details</p>
+                </div>
+                
+                <!-- PayPal Details -->
+                <div class="method-details active" data-method="paypal">
+                    <div class="method-info">
+                        <div class="method-icon">
+                            <i class="fab fa-paypal"></i>
+                        </div>
+                        <div class="method-text">
+                            <h5>PayPal</h5>
+                            <p>Send to: <strong>iloveitdipto@gmail.com</strong></p>
+                        </div>
+                    </div>
+                    <div class="instructions">
+                        <p>1. Send payment to: <code>iloveitdipto@gmail.com</code></p>
+                        <p>2. Include "Clify Support" in notes</p>
+                        <p>3. We'll confirm receipt within 24 hours</p>
+                    </div>
+                    <a href="https://paypal.me/diptodesign98" class="action-btn primary" target="_blank">
+                        <i class="fab fa-paypal"></i>
+                        Open PayPal
+                    </a>
+                </div>
+
+               
+
+                <!-- Payoneer Details -->
+                <div class="method-details" data-method="payoneer">
+                    <div class="method-info">
+                        <div class="method-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="method-text">
+                            <h5>Payoneer</h5>
+                            <p>Email: <strong>diptopayoneer5@gmail.com</strong></p>
+                        </div>
+                    </div>
+                    <div class="instructions">
+                        <p>1. Send to Payoneer account</p>
+                        <p>2. Email: <code>diptopayoneer5@gmail.com</code></p>
+                        <p>3. Include "Clify Donation" in reference</p>
+                    </div>
+                </div>
+
+                <!-- bKash Details -->
+                <div class="method-details" data-method="bkash">
+                    <div class="method-info">
+                        <div class="method-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="method-text">
+                            <h5>bKash</h5>
+                            <p>Number: <strong>01608072154</strong></p>
+                        </div>
+                    </div>
+                    <div class="instructions">
+                        <p>1. Go to bKash menu</p>
+                        <p>2. Send Money → Enter number</p>
+                        <p>3. Amount: <strong id="bkashAmount">৳550</strong></p>
+                        <p>4. Reference: <code>CLIFY</code></p>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn primary" onclick="copyToClipboard('01608072154')">
+                            <i class="fas fa-copy"></i>
+                            Copy Number
+                        </button>
+                        <button class="action-btn secondary" onclick="copyToClipboard('CLIFY')">
+                            <i class="fas fa-copy"></i>
+                            Copy Reference
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Nagad Details -->
+                <div class="method-details" data-method="nagad">
+                    <div class="method-info">
+                        <div class="method-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="method-text">
+                            <h5>Nagad</h5>
+                            <p>Number: <strong>01627588083</strong></p>
+                        </div>
+                    </div>
+                    <div class="instructions">
+                        <p>1. Open Nagad app</p>
+                        <p>2. Send Money → Enter number</p>
+                        <p>3. Amount: <strong id="nagadAmount">৳550</strong></p>
+                        <p>4. Reference: <code>CLIFY</code></p>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn primary" onclick="copyToClipboard('01627588083')">
+                            <i class="fas fa-copy"></i>
+                            Copy Number
+                        </button>
+                        <button class="action-btn secondary" onclick="copyToClipboard('CLIFY')">
+                            <i class="fas fa-copy"></i>
+                            Copy Reference
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Rocket Details -->
+                <div class="method-details" data-method="rocket">
+                    <div class="method-info">
+                        <div class="method-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="method-text">
+                            <h5>Rocket</h5>
+                            <p>Number: <strong>01785510157</strong></p>
+                        </div>
+                    </div>
+                    <div class="instructions">
+                        <p>1. Dial *322#</p>
+                        <p>2. Choose Send Money</p>
+                        <p>3. Amount: <strong id="rocketAmount">৳550</strong></p>
+                        <p>4. Reference: <code>CLIFY</code></p>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn primary" onclick="copyToClipboard('01785510157')">
+                            <i class="fas fa-copy"></i>
+                            Copy Number
+                        </button>
+                        <button class="action-btn secondary" onclick="copyToClipboard('CLIFY')">
+                            <i class="fas fa-copy"></i>
+                            Copy Reference
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Impact Section -->
+    <div class="impact-section">
+        <h3>How Your Support Helps</h3>
+        <div class="impact-grid">
+            <div class="impact-item">
+                <i class="fas fa-server"></i>
+                <h4>Server Costs</h4>
+                <p>Cover cloud storage and update servers</p>
+            </div>
+            <div class="impact-item">
+                <i class="fas fa-bug"></i>
+                <h4>Bug Fixes</h4>
+                <p>Quick resolution of reported issues</p>
+            </div>
+            <div class="impact-item">
+                <i class="fas fa-rocket"></i>
+                <h4>New Features</h4>
+                <p>Development of requested features</p>
+            </div>
+            <div class="impact-item">
+                <i class="fas fa-globe"></i>
+                <h4>Localization</h4>
+                <p>Support for more languages</p>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- Support Section -->
         <section id="support" class="section">
@@ -736,11 +1080,12 @@
             </div>
         </section>
 
+
         <!-- Footer -->
         <footer class="footer">
             <p id="footer-made">Made with ❤️ for a focused YouTube experience</p>
-            <p class="copyright">&copy; 2025 Clify - YouTube Content Blocker. All rights reserved.</p>
-            <p class="disclaimer">This extension is not affiliated with YouTube or Google.</p>
+            <p class="copyright">&copy; 2025 Clify - YouTube Content Blocker. All rights reserved.By Dipto Design Studio. </p>
+            <p class="disclaimer"> *This extension is not affiliated with YouTube or Google.</p>
         </footer>
     </div>
 
@@ -754,7 +1099,7 @@
 
     <!-- Floating Action Button -->
     <button class="fab pulse" id="quickActions" title="Quick Actions">
-        <i class="fas fa-bolt"></i>
+        <i class="fas fa-magnet"></i>
     </button>
 
     <script src="dashboard.js"></script>
