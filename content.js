@@ -14,7 +14,7 @@
     // Enhanced configuration with Shorts removal enabled by default
     const CONFIG = {
         removeShorts: true,
-        maxBlockedVideos: 9000,
+        maxBlockedVideos: 90000,
         annotationRemoval: true,
         autoSkipAds: false
     };
@@ -944,9 +944,9 @@
                     
                 case "saveKeywords":
                     keywords = request.keywords || [];
-                    if (keywords.length > 2000) {
-                        keywords = keywords.slice(0, 2000);
-                        console.log('Clify: Limited keywords to 2000 (maximum supported)');
+                    if (keywords.length > 5000) {
+                        keywords = keywords.slice(0, 5000);
+                        console.log('Clify: Limited keywords to 5000 (maximum supported)');
                     }
                     try {
                         localStorage.setItem('Clify_keywords', JSON.stringify(keywords));
