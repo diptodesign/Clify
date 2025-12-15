@@ -14,7 +14,7 @@
     // Enhanced configuration with Shorts removal enabled by default
     const CONFIG = {
         removeShorts: true,
-        maxBlockedVideos: 100000,
+        maxBlockedVideos: 500000,
         annotationRemoval: true,
         autoSkipAds: false
     };
