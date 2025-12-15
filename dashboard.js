@@ -263,7 +263,7 @@ const TRANSLATIONS = {
         'help-line3': 'Les mots clés ne sont pas sensibles à la casse',
         'help-line4': 'Supporte plusieurs langues: Français, Anglais, Arabe, Hindi, Bangla, etc.',
         'help-line5': 'Utilisez pipe | pour les synonymes: film|فيلم|फिल्म|সিনেমা',
-        'help-line6': 'Maximum 2000 mots clés supportés',
+        'help-line6': 'Maximum 5000 mots clés supportés',
         'support-title': 'Support & Aide',
         'support-subtitle': 'Obtenez de l\'aide, signalez des problèmes et apprenez à utiliser Clify efficacement',
         'contact-title': 'Contacter le Support',
@@ -5201,7 +5201,7 @@ function updateCapacityDisplay(totalBlocks) {
     const capacityElement = $("#capacityDisplay");
     if (!capacityElement) return;
     
-    const maxCapacity = 100000;
+    const maxCapacity = 500000;
     const usagePercent = Math.min(100, Math.round((totalBlocks / maxCapacity) * 100));
     
     let capacityState = 'normal';
