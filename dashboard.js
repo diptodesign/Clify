@@ -5201,7 +5201,7 @@ function updateCapacityDisplay(totalBlocks) {
     const capacityElement = $("#capacityDisplay");
     if (!capacityElement) return;
     
-    const maxCapacity = 90000;
+    const maxCapacity = 100000;
     const usagePercent = Math.min(100, Math.round((totalBlocks / maxCapacity) * 100));
     
     let capacityState = 'normal';
