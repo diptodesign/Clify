@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <img src="[icons/icon128.png](https://i.ibb.co.com/Y4NsF008/icon128.png)" alt="Clify Logo" width="128" height="128">
+  <img src="https://i.ibb.co.com/Y4NsF008/icon128.png" alt="Clify Logo" width="128" height="128">
 </p>
 
 **Clify** is a powerful browser extension that helps you take control of your YouTube experience by automatically hiding distracting content like Shorts, clickbait videos, and unwanted content based on your preferences.
