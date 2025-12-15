@@ -1,162 +1,168 @@
-# Clify - YouTube Blocker & Enhancer
+# Clify (Formerly Zap) - YouTube Content Blocker
 
-> Take control of your YouTube experience by blocking unwanted content automatically
+<p align="center">
+  <img src="https://img.shields.io/badge/Version-7.0.0-brightgreen" alt="Version">
+  <img src="https://img.shields.io/badge/Chrome-Extension-yellow" alt="Chrome Extension">
+  <img src="https://img.shields.io/badge/Open%20Source-❤️-red" alt="Open Source">
+  <img src="https://img.shields.io/badge/35+ Languages-International-blue" alt="35+ Languages">
+</p>
 
-![Version](https://img.shields.io/badge/version-7.0.0-brightgreen)
-![Chrome](https://img.shields.io/badge/chrome-%3E%3D88-blue)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+<p align="center">
+  <img src="icons/icon128.png" alt="Clify Logo" width="128" height="128">
+</p>
 
-## 🚀 Overview
-
-Clify is a powerful browser extension that helps you take control of your YouTube experience by automatically blocking unwanted content, removing distractions, and enhancing your viewing experience.
+**Clify** is a powerful browser extension that helps you take control of your YouTube experience by automatically hiding distracting content like Shorts, clickbait videos, and unwanted content based on your preferences.
 
 ## ✨ Features
 
-### 🛡️ Content Blocking
-- **Automatic Keyword Blocking**: Block videos containing specific keywords or phrases
-- **Manual Blocking**: One-click blocking of individual videos
-- **Shorts Removal**: Automatically remove YouTube Shorts from your feed and navigation
-- **Multi-language Support**: Supports keywords in multiple languages (English, Arabic, Hindi, Bangla, etc.)
+### 🛡️ Core Blocking
+- **Automatic Keyword Filtering**: Block videos containing specific keywords or phrases
+- **YouTube Shorts Removal**: Automatically remove all Shorts from your feed
+- **Multi-language Support**: Supports 35+ languages for keyword filtering
+- **Manual Blocking**: One-click blocking directly from YouTube
+- **Language-based Filtering**: Block content in specific languages
 
-### 🎯 Enhanced Experience
-- **Smart Shorts Detection**: Advanced detection and removal of Shorts content
-- **Annotation Removal**: Remove annotations, info cards, and end screens
-- **uBlock Origin Integration**: Seamless integration with uBlock Origin Lite
-- **Playback Controls**: Customize playback speed and video settings
+### 📊 Smart Dashboard
+- **Real-time Analytics**: Track your blocking activity with detailed stats
+- **Search & Filter**: Powerful search with filtering and sorting options
+- **Keyword Manager**: Easy keyword management with multi-language support
+- **Export Functionality**: Export your blocked videos list as JSON
 
-### 📊 Analytics & Management
-- **Dashboard**: Comprehensive statistics and activity tracking
-- **Search & Filter**: Advanced search through blocked videos with multiple filters
-- **Export Data**: Export your blocked videos list for backup
-- **Capacity Management**: Monitor your storage usage (5000 video limit)
+### 🎨 Enhanced Experience
+- **uBlock Origin Lite Integration**: Works seamlessly with uBlock for ad blocking
+- **Playback Controls**: Customize playback speed and theater mode
+- **Annotation Removal**: Remove annotations and info cards
+- **Modern UI**: Beautiful dark/light theme with intuitive interface
+- **Telegram Integration**: Admin notifications and support messages
 
-### 🌐 Multi-language Support
-- **12 Languages**: English, Español, Français, Deutsch, हिन्दी, 日本語, 한국어, Português, العربية, বাংলা, Русский, 中文
-- **Localized Interface**: Complete translation of all interface elements
+### 🌍 International Support
+Supports 35+ languages including:
+- English, Spanish, French, German, Italian, Portuguese
+- Arabic, Hindi, Bengali, Chinese, Japanese, Korean
+- Russian, Turkish, Polish, Dutch, Vietnamese, and many more!
 
 ## 📦 Installation
 
-### Chrome Web Store
-1. Visit the Chrome Web Store
-2. Search for "Clify - YouTube Blocker"
-3. Click "Add to Chrome"
+### From Chrome Web Store
+1. Visit [Clify on Chrome Web Store](https://chromewebstore.google.com/detail/clify/your-extension-id)
+2. Click "Add to Chrome"
+3. Pin the extension for easy access
 
-### Manual Installation
-1. Download the extension files
-2. Open Chrome and go to `chrome://extensions/`
-3. Enable "Developer mode" in the top right
-4. Click "Load unpacked" and select the extension folder
+### Manual Installation (Developer)
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/diptodesign/clify.git
 
-## 🎯 Usage
+   Open Chrome and go to chrome://extensions/
 
-### Basic Blocking
-- **Manual Blocking**: Click the "HIDE" button that appears on YouTube video thumbnails
-- **Keyword Blocking**: Add keywords in the Keywords tab to automatically block matching videos
-- **Shorts Removal**: Toggle Shorts removal in the Clify Extra tab
+Enable "Developer mode" (top right)
 
-### Dashboard Features
-- **Dashboard Tab**: View your blocking statistics and recent activity
-- **Blocked Videos Tab**: Manage all blocked videos with advanced search and filtering
-- **Keywords Tab**: Add and manage blocking keywords
-- **Clify Extra Tab**: Enhanced features and settings
-- **Support Tab**: Get help and contact support
+Click "Load unpacked" and select the cloned directory
 
-### Advanced Features
-- **Multi-language Keywords**: Use pipe `|` for synonyms: `movie|فيلم|फिल्म|সিনেমা`
-- **Quick Actions**: Use the floating action button for quick access to common actions
-- **Export/Import**: Backup your blocked videos and settings
-- **Theme Support**: Switch between dark and light themes
+The extension will be installed and ready to use
 
-## ⚙️ Configuration
+🚀 Quick Start
+Install the extension from Chrome Web Store
 
-### Enhanced Settings
+Click on the Clify icon in your toolbar to open the dashboard
 
-| Setting | Description | Default |
-|---------|-------------|---------|
-| Shorts Removal | Automatically remove YouTube Shorts | Enabled |
-| Annotation Removal | Remove video annotations and cards | Enabled |
-| Playback Speed | Customize video playback speed | 1.0x |
-| Theater Mode | Always use theater mode | Disabled |
-| Auto-play | Disable auto-play next video | Disabled |
+Add Keywords: Go to Keywords tab and add keywords you want to block
 
-### Storage Management
-- **Capacity Monitoring**: Track your blocked videos storage (5000 video limit)
-- **Clear All**: Remove all blocked videos when needed
-- **Export Data**: Backup your blocking data as JSON file
+Enable Features: Toggle Shorts removal, annotation blocking, etc.
 
-## 🔧 Technical Details
+Browse YouTube: The extension will automatically filter content
 
-### Browser Support
-- Google Chrome (recommended)
-- Microsoft Edge
-- Other Chromium-based browsers
+🛠️ Development
+Project Structure
+text
+clify/
+├── manifest.json          # Extension configuration
+├── background.js         # Background service worker
+├── content.js           # YouTube content script
+├── dashboard.html       # Main dashboard UI
+├── dashboard.css        # Dashboard styles
+├── dashboard.js         # Dashboard functionality
+├── icons/              # Extension icons (16x16 to 128x128)
+└── README.md           # This file
+Building from Source
+Ensure you have Node.js installed
 
-### Permissions
-- **Storage**: Save your preferences and blocked videos
-- **YouTube Access**: Modify YouTube page content
-- **Notifications**: Show system notifications
-- **Telegram API**: For support messages (optional)
+Clone the repository
 
-### Privacy
-- **Local Processing**: All blocking happens locally in your browser
-- **No Data Collection**: No personal data is sent to external servers
-- **Optional Telemetry**: Support messages via Telegram are optional
+Install dependencies (if any)
 
-## 🆘 Support
+Load the unpacked extension in Chrome
 
-### Getting Help
-- **In-app Support**: Use the Support tab to contact us
-- **Documentation**: Comprehensive help resources within the extension
-- **Telegram Channel**: Join [@Clifybydd](https://t.me/Clifybydd) for updates and support
+Contributing
+We welcome contributions! Please see our Contributing Guide for details.
 
-### Troubleshooting
-- **Refresh Data**: Use the refresh button if data seems outdated
-- **Clear Cache**: Use "Clear All" if experiencing issues
-- **Reinstall**: As a last resort, reinstall the extension
+📖 Usage Guide
+Keyword Management
+Enter one keyword per line or separate with commas
 
-## 🔄 Updates
+Use pipe | for synonyms: movie|فيلم|फिल्म|সিনেমা
 
-Clify automatically checks for updates and notifies you of new features and improvements. Major updates are announced in the Telegram channel.
+Supports multiple languages simultaneously
 
-## 📁 File Structure
-clify-extension/
-├── manifest.json # Extension manifest
-├── background.js # Background service worker
-├── content.js # YouTube content script
-├── dashboard.html # Options page UI
-├── dashboard.js # Options page functionality
-├── dashboard.css # Styling for dashboard
-├── supabase-storage.js # Cloud storage integration
-└── icons/ # Extension icons
-├── icon16.png
-├── icon32.png
-├── icon48.png
-└── icon128.png
+Maximum 5000+ keywords supported
 
-## 🛠️ Development
+Blocked Videos Management
+Search through blocked videos with advanced filters
 
-### Building from Source
-1. Clone the repository
-2. Load the extension in developer mode
-3. Make changes to the source files
-4. Test on YouTube pages
+Export your blocked list as JSON
 
-### Key Components
-- **Content Script**: Handles video detection and blocking on YouTube
-- **Background Script**: Manages extension lifecycle and messaging
-- **Dashboard**: Provides user interface for configuration and analytics
-- **Storage**: Manages local and cloud storage for user data
+Unblock individual videos or clear all
 
-## 🤝 Contributing
+View detailed statistics and analytics
 
-We welcome contributions! Please feel free to submit issues, feature requests, or pull requests.
+Enhanced Features
+Shorts Removal: Toggle on/off in Enhanced Features tab
 
-## 📄 License
+Playback Controls: Set default playback speed
 
-Copyright © 2025 Clify - YouTube Content Blocker. All rights reserved.
+uBlock Integration: Works alongside uBlock Origin Lite
 
-This extension is not affiliated with YouTube or Google.
+Theme: Switch between dark and light modes
 
----
+🔒 Privacy & Security
+Clify respects your privacy:
 
-**Made with ❤️ for a focused YouTube experience**
+Local Processing: All keyword matching happens locally in your browser
+
+No Tracking: We don't track your browsing history
+
+Telegram Opt-in: Telegram integration is optional and requires your consent
+
+Open Source: Fully transparent codebase
+
+For more details, see our Security Policy.
+
+📞 Support
+Need Help?
+Check the Support tab in the dashboard
+
+Join our Telegram Channel
+
+Report issues on GitHub Issues
+
+Found a Bug?
+Please report it with:
+
+Steps to reproduce
+
+Expected behavior
+
+Actual behavior
+
+Screenshots if possible
+
+🤝 Contributing
+We welcome contributions of all kinds:
+
+Code: Fix bugs, add features, improve performance
+
+Translations: Help translate to more languages
+
+Documentation: Improve documentation and guides
+
+Testing: Report bugs and test new features
