@@ -1,7 +1,7 @@
 # Clify (Formerly Zap) - YouTube Content Blocker
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-7.0.0-brightgreen" alt="Version">
+  <img src="https://img.shields.io/badge/Version-8.0.0-brightgreen" alt="Version">
   <img src="https://img.shields.io/badge/Chrome-Extension-yellow" alt="Chrome Extension">
   <img src="https://img.shields.io/badge/Open%20Source-❤️-red" alt="Open Source">
   <img src="https://img.shields.io/badge/35+ Languages-International-blue" alt="35+ Languages">
