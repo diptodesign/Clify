@@ -128,12 +128,14 @@
             </nav>
         </div>
 
+
         <!-- Dashboard Section -->
         <section id="dash" class="section active">
             <div class="section-header">
                 <h1 id="welcome-title">Welcome to Clify! ⚡</h1>
                 <p id="welcome-subtitle">Take control of your YouTube experience by blocking unwanted content automatically</p>
             </div>
+
 
             <!-- Welcome Card -->
             <div class="welcome-card">
@@ -1088,6 +1090,186 @@
             <p class="disclaimer"> *This extension is not affiliated with YouTube or Google.</p>
         </footer>
     </div>
+<!-- Add this at the VERY TOP of body - impossible to remove without breaking -->
+<div id="clifyOfficialRoot" data-official="true" 
+     data-developer="Dipto Design Studio" 
+     data-email="DiptoDesignStd@gmail.com"
+     data-website="https://diptodesign.github.io/clifydl/"
+     data-year="2026"
+     style="display: none;">
+</div>
+
+<!-- Enhanced footer with multiple protection layers -->
+<footer class="footer" id="officialFooter" data-protected="true">
+    <p id="footer-made">
+        <i class="fas fa-shield-alt"></i> 
+        Official Clify Extension v7.0.0<br>
+        <strong>Developed & Maintained by Dipto Design Studio</strong>
+    </p>
+    
+        <span class="copyright-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            Unauthorized distribution prohibited.
+        </span>
+    </p>
+    
+    <p class="official-contact" id="officialContactInfo">
+        <i class="fas fa-envelope"></i> 
+        <span id="officialEmail" data-locked="true">DiptodignStd@gmail.com</span> | 
+        <i class="fas fa-globe"></i> 
+        <span id="officialWebsite" data-locked="true">diptodesign.github.io/clifydl/</span>
+    </p>
+    
+    <p class="verification">
+        <small>
+            <i class="fas fa-plug"></i> 
+            Extension ID: <code id="extensionId"></code> | 
+            Verified: <span id="verificationStatus">Official ✓</span>
+        </small>
+    </p>
+</footer>
+
+<!-- Protection Script - Can't be removed -->
+<script>
+// IMMUTABLE ATTRIBUTION PROTECTION
+(function() {
+    'use strict';
+    
+    const OFFICIAL_INFO = Object.freeze({
+        developer: 'Dipto Design Studio',
+        email: 'DiptoDesignStd@gmail.com',
+        website: 'https://diptodesign.github.io/clifydl/',
+        copyright: '© 2026 Dipto Design Studio',
+        version: '7.0.0'
+    });
+    
+    // Function to enforce attribution
+    function enforceAttribution() {
+        // Set official info (can't be changed)
+        document.getElementById('developerName').textContent = OFFICIAL_INFO.developer;
+        document.getElementById('officialEmail').textContent = OFFICIAL_INFO.email;
+        document.getElementById('officialWebsite').textContent = OFFICIAL_INFO.website;
+        document.getElementById('verificationStatus').textContent = 'Official ✓';
+        
+        // Get extension ID
+        chrome.runtime.sendMessage({type: "getExtensionInfo"}, response => {
+            if (response && response.id) {
+                document.getElementById('extensionId').textContent = response.id;
+            }
+        });
+        
+        // Make elements unmodifiable
+        const protectedElements = document.querySelectorAll('[data-locked], [data-immutable], [data-protected]');
+        protectedElements.forEach(el => {
+            // Prevent copying/modification
+            el.style.userSelect = 'none';
+            el.style.webkitUserSelect = 'none';
+            el.style.MozUserSelect = 'none';
+            el.style.msUserSelect = 'none';
+            
+            // Prevent right-click
+            el.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                showWarning('This information is protected by copyright.');
+                return false;
+            });
+            
+            // Lock innerHTML
+            Object.defineProperty(el, 'innerHTML', {
+                writable: false,
+                configurable: false
+            });
+        });
+        
+        // Create hidden watermark
+        if (!document.querySelector('#clifyHiddenWatermark')) {
+            const watermark = document.createElement('div');
+            watermark.id = 'clifyHiddenWatermark';
+            watermark.setAttribute('data-official', 'true');
+            watermark.setAttribute('data-developer', OFFICIAL_INFO.developer);
+            watermark.setAttribute('data-email', OFFICIAL_INFO.email);
+            watermark.innerHTML = `CLIFY_${OFFICIAL_INFO.version}_${OFFICIAL_INFO.developer.replace(/\s+/g, '_')}`;
+            watermark.style.cssText = 'position:absolute;opacity:0.001;z-index:-99999;pointer-events:none;font-size:1px;';
+            document.body.appendChild(watermark);
+        }
+    }
+    
+    // Self-healing if attribution is removed
+    function selfHealAttribution() {
+        setInterval(() => {
+            // Check if official elements exist
+            const requiredElements = [
+                'developerName',
+                'officialEmail', 
+                'officialWebsite',
+                'clifyHiddenWatermark',
+                'clifyOfficialRoot'
+            ];
+            
+            let missingElements = [];
+            requiredElements.forEach(id => {
+                if (!document.getElementById(id)) {
+                    missingElements.push(id);
+                }
+            });
+            
+            if (missingElements.length > 0) {
+                console.warn('⚠️ CLIFY: Attribution elements removed. Restoring...');
+                console.warn('📧 Official Developer:', OFFICIAL_INFO.developer);
+                console.warn('📧 Contact:', OFFICIAL_INFO.email);
+                
+                // Restore footer if missing
+                if (!document.getElementById('officialFooter')) {
+                    location.reload(); // Force reload to restore
+                }
+            }
+        }, 5000); // Check every 5 seconds
+    }
+    
+    // Show warning
+    function showWarning(message) {
+        const warning = document.createElement('div');
+        warning.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            z-index: 999999;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        `;
+        warning.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
+        document.body.appendChild(warning);
+        setTimeout(() => warning.remove(), 3000);
+    }
+    
+    // Initialize protection
+    document.addEventListener('DOMContentLoaded', function() {
+        enforceAttribution();
+        selfHealAttribution();
+        
+        // Add click handler to official info
+        document.getElementById('officialEmail').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('mailto:DiptoDesignStd@gmail.com?subject=Clify%20Support&body=Hello%20Dipto%20Design%20Studio,');
+        });
+        
+        document.getElementById('officialWebsite').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open('https://diptodesign.github.io/clifydl/', '_blank');
+        });
+    });
+    
+    // Export to window (hard to remove)
+    window.__clifyOfficialAttribution = Object.freeze(OFFICIAL_INFO);
+    
+})();
+</script>
+
+
 
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" title="Back to Top">
@@ -1101,6 +1283,7 @@
     <button class="fab pulse" id="quickActions" title="Quick Actions">
         <i class="fas fa-magnet"></i>
     </button>
+
 
     <script src="dashboard.js"></script>
 </body>

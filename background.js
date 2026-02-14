@@ -1,3 +1,133 @@
+// ============================================
+// CLIFY OFFICIAL DEVELOPER PROTECTION SYSTEM
+// ============================================
+
+const OFFICIAL_DEVELOPER_INFO = Object.freeze({
+    name: "Dipto Design Studio",
+    email: "DiptoDesignStd@gmail.com",
+    website: "https://diptodesign.github.io/clifydl/",
+    copyright: "© 2026 Dipto Design Studio",
+    verificationKey: "CLIFY-OFFICIAL-DIPTO-V7-2026",
+    officialContact: "DiptoDesignStd@gmail.com",
+    officialDownload: "https://diptodesign.github.io/clifydl/"
+});
+
+// Install-time attribution (impossible to remove)
+chrome.runtime.onInstalled.addListener((details) => {
+    console.log(`
+╔══════════════════════════════════════════════╗
+║           CLIFY v${VERSION} - OFFICIAL              ║
+║        Developed by Dipto Design Studio      ║
+║     Contact: DiptoDesignStd@gmail.com        ║
+║  Download: diptodesign.github.io/clifydl/    ║
+║            © 2026 - All Rights Reserved      ║
+╚══════════════════════════════════════════════╝
+    `);
+    
+    // Store permanent attribution data
+    chrome.storage.local.set({
+        'clify_official_developer': OFFICIAL_DEVELOPER_INFO.name,
+        'clify_official_email': OFFICIAL_DEVELOPER_INFO.email,
+        'clify_official_website': OFFICIAL_DEVELOPER_INFO.website,
+        'clify_official_version': VERSION,
+        'clify_install_date': new Date().toISOString(),
+        'clify_copyright': OFFICIAL_DEVELOPER_INFO.copyright
+    });
+    
+    // Create unremovable attribution
+    createPermanentAttribution();
+    
+    // Register with verification server
+    registerExtension();
+});
+
+// Create attribution that survives removal attempts
+function createPermanentAttribution() {
+    // Multiple layers of attribution
+    const attributionLayers = [
+        // Layer 1: Console watermark (always visible)
+        () => {
+            console.log('%c[CLIFY OFFICIAL]', 'color: #c1f11d; font-weight: bold;');
+            console.log('%cDeveloper: Dipto Design Studio', 'color: #666;');
+            console.log('%cEmail: DiptoDesignStd@gmail.com', 'color: #666;');
+            console.log('%cWebsite: https://diptodesign.github.io/clifydl/', 'color: #666;');
+        },
+        
+        // Layer 2: Storage markers
+        () => {
+            chrome.storage.local.set({
+                'clify_attribution_timestamp': Date.now(),
+                'clify_official_marker': 'OFFICIAL_DIPTO_DESIGN_STUDIO'
+            });
+        },
+        
+        // Layer 3: Periodic reminder
+        () => {
+            setInterval(() => {
+                console.log('%c🔒 Clify Official - Dipto Design Studio', 
+                    'color: #c1f11d; font-size: 11px;');
+            }, 300000); // Every 5 minutes
+        }
+    ];
+    
+    // Apply all layers
+    attributionLayers.forEach(layer => {
+        try { layer(); } catch (e) { /* Silent fail */ }
+    });
+}
+
+// Register with official verification server
+async function registerExtension() {
+    try {
+        const response = await fetch('https://clify-official-verification.onrender.com/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                extensionId: chrome.runtime.id,
+                developer: OFFICIAL_DEVELOPER_INFO.name,
+                email: OFFICIAL_DEVELOPER_INFO.email,
+                website: OFFICIAL_DEVELOPER_INFO.website,
+                version: VERSION,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent
+            })
+        });
+        
+        if (response.ok) {
+            console.log('✅ Registered with Clify Official Verification System');
+        }
+    } catch (error) {
+        // Offline mode is okay
+    }
+}
+
+// Verify extension integrity hourly
+setInterval(async () => {
+    try {
+        const manifest = chrome.runtime.getManifest();
+        const isOfficial = manifest.author.includes('DiptoDesignStd@gmail.com') && 
+                          manifest.homepage_url.includes('diptodesign.github.io/clifydl');
+        
+        if (!isOfficial) {
+            console.error('❌ UNAUTHORIZED COPY DETECTED');
+            console.error('Official Developer: Dipto Design Studio');
+            console.error('Official Email: DiptoDesignStd@gmail.com');
+            console.error('Official Download: https://diptodesign.github.io/clifydl/');
+            
+            // Show notification warning
+            chrome.notifications.create({
+                type: 'basic',
+                iconUrl: chrome.runtime.getURL('icons/icon128.png'),
+                title: '⚠️ Clify Security Alert',
+                message: 'This appears to be an unofficial copy. Get official version from diptodesign.github.io/clifydl',
+                priority: 2
+            });
+        }
+    } catch (error) {
+        // Integrity check failed
+    }
+}, 3600000); // Every hour
+
 // background.js - RENDER.COM EDITION v7.0.0
 const VERSION = "7.0.0";
 const SERVER_URL = "https://clifyz.onrender.com/api";

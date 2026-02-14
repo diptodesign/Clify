@@ -6302,6 +6302,105 @@ body,
         padding: 24px;
     }
 }
+/* =========================================== */
+/* CLIFY OFFICIAL DEVELOPER PROTECTION STYLES */
+/* =========================================== */
+
+/* Make attribution elements unremovable */
+#officialFooter,
+#lockedCopyright,
+#officialContactInfo,
+#clifyOfficialRoot {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Lock copyright text */
+#lockedCopyright {
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    pointer-events: none !important;
+}
+
+#developerName {
+    color: var(--primary) !important;
+    font-weight: 700 !important;
+    cursor: default !important;
+}
+
+/* Official contact styling */
+#officialContactInfo {
+    background: var(--bg-glass) !important;
+    padding: 12px !important;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid var(--border-primary) !important;
+    margin: 10px 0 !important;
+}
+
+#officialEmail, #officialWebsite {
+    color: var(--primary) !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    border-bottom: 1px dashed var(--primary) !important;
+    transition: all 0.3s ease !important;
+}
+
+#officialEmail:hover, #officialWebsite:hover {
+    color: var(--primary-dark) !important;
+    border-bottom-style: solid !important;
+}
+
+/* Warning styles */
+.copyright-warning {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-left: 10px !important;
+    padding: 4px 10px !important;
+    background: rgba(255, 107, 107, 0.1) !important;
+    border-radius: 20px !important;
+    font-size: 11px !important;
+    color: var(--danger) !important;
+    border: 1px solid rgba(255, 107, 107, 0.3) !important;
+}
+
+/* Verification badge */
+#verificationStatus {
+    color: var(--success) !important;
+    font-weight: 700 !important;
+    animation: pulse 2s infinite !important;
+}
+
+/* Add official badge in header */
+.header::after {
+    content: "Official" !important;
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: var(--primary) !important;
+    color: #0A0F1C !important;
+    padding: 2px 8px !important;
+    border-radius: 10px !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1px !important;
+}
+
+/* Watermark for print */
+@media print {
+    .footer::before {
+        content: "Clify Official - Dipto Design Studio (DiptoDesignStd@gmail.com)" !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        text-align: center !important;
+        font-size: 8px !important;
+        opacity: 0.5 !important;
+    }
+}
 
 @media (max-width: 768px) {
     .feature-list {

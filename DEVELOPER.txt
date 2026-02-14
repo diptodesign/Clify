@@ -1,0 +1,24 @@
+==========================================
+CLIFY YOUTUBE CONTENT BLOCKER v7.0.0
+==========================================
+OFFICIAL DEVELOPER: Dipto Design Studio
+CONTACT EMAIL: DiptoDesignStd@gmail.com
+OFFICIAL WEBSITE: https://diptodesign.github.io/clifydl/
+RELEASE DATE: 2026
+COPYRIGHT: © 2026 Dipto Design Studio
+==========================================
+
+This extension contains multiple layers of developer attribution
+that cannot be removed without breaking functionality.
+
+For support, licensing, or partnership inquiries:
+Email: DiptoDesignStd@gmail.com
+
+Official source code repository:
+https://github.com/diptodesign/clify
+
+Unauthorized modification or distribution will result in:
+1. DMCA takedown notices
+2. Legal action for copyright infringement
+3. Permanent ban from official services
+==========================================
