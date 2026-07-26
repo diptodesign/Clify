@@ -1,168 +1,247 @@
-# Clify (Formerly Zap) - YouTube Content Blocker
-
 <p align="center">
-    <img src="https://img.shields.io/badge/Chrome-Extension-green" alt="Chrome Extension (only)">
-  <img src="https://img.shields.io/badge/Version-8.0.0-brightgreen" alt="Version">
-  <img src="https://img.shields.io/badge/Open%20Source-❤️-white" alt="Open Source Project">
-  <img src="https://img.shields.io/badge/35+ Languages-Supported-red" alt="35+ Languages">
+  <img src="https://img.shields.io/badge/Version-16.0.0-brightgreen" alt="Version">
+  <img src="https://img.shields.io/badge/Open%20Source-MIT-blue" alt="MIT License">
+  <img src="https://img.shields.io/badge/Manifest-V3-yellow" alt="Manifest V3">
+  <img src="https://img.shields.io/badge/32%20Languages-Supported-red" alt="32 Languages">
+  <img src="https://img.shields.io/badge/35%2B-Tools-purple" alt="35+ Tools">
 </p>
 
 <p align="center">
-  <img src="https://i.ibb.co.com/Y4NsF008/icon128.png" alt="Clify Logo" width="128" height="128">
+  <img src="https://i.ibb.co.com/ynVThcLq/logo.png" alt="Clify Logo" width="128" height="128">
 </p>
 
-**Clify** is a powerful browser extension that helps you take control of your YouTube experience by automatically hiding distracting content like Shorts, clickbait videos, and unwanted content based on your preferences.
+<h1 align="center">Clify (Formerly Zap)</h1>
 
-## ✨ Features
+<p align="center">
+  <strong>YouTube, Uncluttered.</strong><br>
+  Free, open-source YouTube blocker with 5-layer ad blocking, Shorts removal, SponsorBlock, audio equalizer, age-gate bypass, and 35+ focus tools. Manual install, 100% private.
+</p>
 
-### 🛡️ Core Blocking
-- **Automatic Keyword Filtering**: Block videos containing specific keywords or phrases
-- **YouTube Shorts Removal**: Automatically remove all Shorts from your feed
-- **Multi-language Support**: Supports 35+ languages for keyword filtering
-- **Manual Blocking**: One-click blocking directly from YouTube
-- **Language-based Filtering**: Block content in specific languages
+<p align="center">
+  <a href="https://diptodesign.github.io/clifydl">Landing Page</a> ·
+  <a href="https://github.com/diptodesign/Clify/releases">Download</a> ·
+  <a href="https://www.producthunt.com/products/clify-formerly-zap">Product Hunt</a>
+</p>
 
-### 📊 Smart Dashboard
-- **Real-time Analytics**: Track your blocking activity with detailed stats
-- **Search & Filter**: Powerful search with filtering and sorting options
-- **Keyword Manager**: Easy keyword management with multi-language support
-- **Export Functionality**: Export your blocked videos list as JSON
+---
 
-### 🎨 Enhanced Experience
-- **uBlock Origin Lite Integration**: Works seamlessly with uBlock for ad blocking
-- **Playback Controls**: Customize playback speed and theater mode
-- **Annotation Removal**: Remove annotations and info cards
-- **Modern UI**: Beautiful dark/light theme with intuitive interface
-- **Telegram Integration**: Admin notifications and support messages
+## Features
 
-### 🌍 International Support
-Supports 35+ languages including:
-- English, Spanish, French, German, Italian, Portuguese
-- Arabic, Hindi, Bengali, Chinese, Japanese, Korean
-- Russian, Turkish, Polish, Dutch, Vietnamese, and many more!
+### 5-Layer Ad Blocker
+uBlock Origin-level protection built specifically for YouTube.
+- **Layer 1**: `declarativeNetRequest` — 300+ static filter rules (block, redirect, header modify)
+- **Layer 2**: DOM removal — Scans every 600ms for 180+ ad selectors across 15 categories
+- **Layer 3**: Network interception — `fetch`/`XHR` hook with 120+ ad domains + 20+ regex URL patterns
+- **Layer 4**: Scriptlet injection — Anti-adblock bypass, ad detection flag overrides, nag popup blocking
+- **Layer 5**: Procedural cosmetic filtering — Text-content-based element hiding
 
-## 📦 Installation
+### Shorts Remover
+Completely removes YouTube Shorts from your feed, sidebar, search results, and dedicated tab. Reclaims your attention from algorithmic short-form content.
 
-### From Chrome Web Store
-1. Visit [Clify on Chrome Web Store](https://chromewebstore.google.com/detail/clify/your-extension-id)
-2. Click "Add to Chrome"
-3. Pin the extension for easy access
+### SponsorBlock Integration
+Skips sponsored segments, intros, outros, highlight reels, and filler with community-powered data.
+- 3-URL fallback chain for reliability
+- Smart outro detection with progress bar visualization
+- Verified segment preference and segment merging
+- **Default ON** — works out of the box
 
-### Manual Installation (Developer)
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/diptodesign/clify.git
+### Audio Equalizer
+5-band Web Audio API equalizer with real-time control.
+- Bands: 60Hz (bass), 250Hz, 1kHz, 4kHz, 12kHz (treble)
+- 9 presets: Flat, Bass Boost, Treble Boost, Vocal, Rock, Electronic, Classical, Podcast, Custom
+- Per-band sliders (-12dB to +12dB) in the dashboard
+- Gains persist across sessions
 
-   Open Chrome and go to chrome://extensions/
+### Age-Gate Bypass
+Automatically bypasses age verification screens, consent dialogs, and "Sign in to confirm" prompts. Clicks proceed buttons, removes overlays, and force-shows the video player.
 
-Enable "Developer mode" (top right)
+### Live Stream Cleaner
+Hide distracting elements during live streams.
+- Hide live chat panel
+- Hide Super Chat donations
+- Hide member badges and tickers
+- All toggles independently configurable
 
-Click "Load unpacked" and select the cloned directory
+### Channel Manager
+Block or allow specific channels with full-screen visual overlays on both search results and watch pages.
+- Add by channel name, URL, or channel ID
+- Intelligent search with `extractChannelIdFromInput()`
+- Normalized comparison for consistent matching
+- Block counter badge on the extension icon
 
-The extension will be installed and ready to use
+### Keyword Manager
+Filter videos by title content with advanced matching.
+- One keyword per line or comma-separated
+- Pipe `|` for synonyms: `movie|film|cinema|picture`
+- Supports 32 languages simultaneously
+- 5,000+ keywords supported
+- Crown icon badge in the help section
 
-🚀 Quick Start
-Install the extension from Chrome Web Store
+### Watch Later Queue
+Queue videos for later viewing with a built-in playlist manager.
 
-Click on the Clify icon in your toolbar to open the dashboard
+### Scheduled Blocking
+Set custom time-based schedules for when blocking is active. Focus mode during work hours, relaxed mode on weekends.
 
-Add Keywords: Go to Keywords tab and add keywords you want to block
+### Content Density Meter
+Analyzes video metadata to calculate a quality score. Rolling 20-video window tracks your consumption patterns with color-coded badges (green/yellow/red).
 
-Enable Features: Toggle Shorts removal, annotation blocking, etc.
+### Monetization Badge
+Detects channel monetization status using 7 detection methods. Displays a filled pill badge with SVG icon directly on video thumbnails.
 
-Browse YouTube: The extension will automatically filter content
+### Language Block
+Blocks content in specific languages using Unicode script detection (22 scripts + Latin) with title-only filtering fallback.
 
-🛠️ Development
-Project Structure
-text
-clify/
-├── manifest.json          # Extension configuration
-├── background.js         # Background service worker
-├── content.js           # YouTube content script
-├── dashboard.html       # Main dashboard UI
-├── dashboard.css        # Dashboard styles
-├── dashboard.js         # Dashboard functionality
-├── icons/              # Extension icons (16x16 to 128x128)
-└── README.md           # This file
-Building from Source
-Ensure you have Node.js installed
+### Picture-in-Picture Button
+Native-styled PiP toggle button injected into the YouTube player controls. Uses Tabler icon SVG with 2-second re-inject interval for reliability.
 
-Clone the repository
+---
 
-Install dependencies (if any)
+## Dashboard
 
-Load the unpacked extension in Chrome
+Tabbed interface with 4 sections:
+- **Dashboard** — Stats overview, daily/weekly blocking charts, time saved, channel scores
+- **Blocked** — Sub-tabs for Videos, Channels, Keywords, and Watch Later management
+- **Protection** — Sub-tabs for Ad Blocker config, More Features (Shorts, SponsorBlock, Age-Gate, Live Stream, PiP), and Language blocking
+- **Stats** — Usage statistics with weekly activity chart
 
-Contributing
-We welcome contributions! Please see our Contributing Guide for details.
+Features:
+- Dark/light theme (neutral black `#0a0a0f` dark, solid white light)
+- All settings auto-save to `chrome.storage.sync`
+- 32-language translation system with RTL support
+- Tabler Icons bundled locally (no CDN)
 
-📖 Usage Guide
-Keyword Management
-Enter one keyword per line or separate with commas
+---
 
-Use pipe | for synonyms: movie|فيلم|फिल्म|সিনেমা
+## Internationalization
 
-Supports multiple languages simultaneously
+Full UI translation in **32 languages**:
+English, Spanish, French, German, Italian, Portuguese, Arabic, Hindi, Bengali, Chinese (Simplified & Traditional), Japanese, Korean, Russian, Turkish, Polish, Dutch, Vietnamese, Indonesian, Malay, Swedish, Norwegian, Danish, Finnish, Czech, Romanian, Ukrainian, Hebrew, Swahili, Tamil, Telugu, Thai, Greek.
 
-Maximum 5000+ keywords supported
+---
 
-Blocked Videos Management
-Search through blocked videos with advanced filters
+## Installation
 
-Export your blocked list as JSON
+### Manual Install (Chrome / Chromium)
+1. Download the [latest release](https://github.com/diptodesign/Clify/releases) ZIP
+2. Extract the ZIP file
+3. Open `chrome://extensions/`
+4. Enable **Developer mode** (top right toggle)
+5. Click **Load unpacked** and select the extracted folder
+6. Pin the extension and open the dashboard
 
-Unblock individual videos or clear all
+### Android (Kiwi Browser / Quetta Browser)
+1. Download the release ZIP on your phone
+2. Extract using a file manager
+3. Open Kiwi or Quetta Browser → `chrome://extensions/`
+4. Enable Developer mode → **Load unpacked** → select the folder
+5. Browse YouTube with full Clify support
 
-View detailed statistics and analytics
+### Supported Browsers
+Chrome, Edge, Brave, Opera, Vivaldi, Arc, Kiwi, Quetta, Firefox, Firefox Android, Yandex, Samsung Internet, Ungoogled Chromium, Thorium, and all other Chromium-based browsers.
 
-Enhanced Features
-Shorts Removal: Toggle on/off in Enhanced Features tab
+---
 
-Playback Controls: Set default playback speed
+## Project Structure
 
-uBlock Integration: Works alongside uBlock Origin Lite
+```
+Clify 21 C/
+├── manifest.json          # Manifest V3 configuration
+├── background.js          # Service worker, declarativeNetRequest rules, notifications
+├── content.js             # YouTube content script (ad blocker, features, DOM manipulation)
+├── dashboard.html         # Dashboard UI (4 tabs, 32 language blocks)
+├── dashboard.css          # Dashboard styles (dark/light theme, glassmorphism)
+├── dashboard.js           # Dashboard logic, settings persistence, i18n system
+├── attribution.js         # Developer attribution
+├── ownership.js           # Ownership verification
+├── icons/                 # Extension icons (16x16 to 128x128)
+├── fonts/                 # Bundled Tabler Icons fonts
+├── tabler-icons.min.css   # Tabler Icons stylesheet (local, no CDN)
+├── logo.png               # Custom logo
+├── vendor/                # Third-party dependencies
+├── admin/                 # Admin panel
+├── DEVELOPER.txt          # Developer info
+├── LEGAL.md               # Legal notices
+└── PRIVACY.md             # Privacy policy
+```
 
-Theme: Switch between dark and light modes
+---
 
-🔒 Privacy & Security
+## Privacy
+
 Clify respects your privacy:
+- **Local processing** — All keyword matching and blocking happens in your browser
+- **No telemetry** — Zero analytics, tracking, or data collection
+- **No servers** — All data stored in `chrome.storage.local` / `chrome.storage.sync`
+- **Open source** — Fully transparent codebase, audit anytime
+- **Optional newsletter** — Email signup is completely separate and optional
 
-Local Processing: All keyword matching happens locally in your browser
+---
 
-No Tracking: We don't track your browsing history
+## Tech Stack
 
-Telegram Opt-in: Telegram integration is optional and requires your consent
+| Component | Technology |
+|-----------|-----------|
+| Platform | Chrome Extension (Manifest V3) |
+| Ad Blocking | `declarativeNetRequest` + DOM removal + `fetch`/XHR interception + scriptlet injection |
+| Audio | Web Audio API (5 `BiquadFilterNode` bands) |
+| SponsorBlock | REST API with 3-URL fallback chain |
+| UI Framework | Vanilla JS, CSS Custom Properties |
+| Icons | Tabler Icons (bundled locally) |
+| Fonts | Inter + JetBrains Mono (Google Fonts) |
+| Notifications | Telegram Bot API (opt-in) |
 
-Open Source: Fully transparent codebase
+---
 
-For more details, see our Security Policy.
+## Contributing
 
-📞 Support
-Need Help?
-Check the Support tab in the dashboard
+We welcome contributions:
+- **Code** — Fix bugs, add features, improve performance
+- **Translations** — Help translate to more languages (32 supported, room for more)
+- **Testing** — Report bugs with steps to reproduce
+- **Design** — Improve UI/UX, suggest new features
 
-Join our Telegram Channel
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test on YouTube with the extension loaded
+5. Submit a pull request
 
-Report issues on GitHub Issues
+---
 
-Found a Bug?
-Please report it with:
+## Changelog
 
-Steps to reproduce
+| Version | Highlights |
+|---------|-----------|
+| **v16.0.0** | Age-Gate Bypass, Audio Equalizer (5-band, 9 presets), Live Stream Cleaner, custom logo, footer tooltip morph animation |
+| **v15.0.0** | Sub-tabs in Blocked & Protection tabs, Usage Stats redesign, Watch Later empty state, Mojibake encoding fixes |
+| **v14.0.0** | Content Density Meter, Monetization Badge, Language Block (22 scripts), PiP Button, Channel blocking overlays |
+| **v13.0.0** | uBlock Origin-level ad blocker upgrade (180+ selectors, 120+ domains, scriptlet injection) |
+| **v12.0.0** | Dashboard tab merger (8→4), SponsorBlock improvements (3-URL fallback, smart outro), Dashboard settings persistence |
+| **v11.0.0** | Changelog redesign (timeline), Product Hunt badge, Usage Stats charts |
+| **v10.0.0** | Live Stream Cleaner config, Keyword Pack badge, Footer restructured |
+| **v9.0.0** | Notification system (Telegram), Admin panel, Channel Manager visual redesign |
+| **v8.0.0** | Tabler Icons bundled locally, BOM fix, Dark/Light theme refinement |
 
-Expected behavior
+---
 
-Actual behavior
+## License
 
-Screenshots if possible
+MIT License — do whatever you want.
 
-🤝 Contributing
-We welcome contributions of all kinds:
+---
 
-Code: Fix bugs, add features, improve performance
+## Credits
 
-Translations: Help translate to more languages
+Built with:
+- [SponsorBlock API](https://github.com/nicehash/SponsorBlock) — Community-powered sponsor segment data
+- [Tabler Icons](https://tabler.io/icons) — 3,800+ MIT-licensed icons
+- [Inter](https://fonts.google.com/specimen/Inter) + [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono) — Open-source typefaces
+- [Chrome DeclarativeNetRequest API](https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/) — Manifest V3 network filtering
+- [Web Audio API](https://web.dev/audio/) — Real-time audio equalization
 
-Documentation: Improve documentation and guides
+---
 
-Testing: Report bugs and test new features
+<p align="center">
+  Made by <strong>Dipto Design Studio</strong>
+</p>
