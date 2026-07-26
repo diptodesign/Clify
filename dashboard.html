@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clify - YouTube Blocker</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <img src="logo.png" alt="Clify" style="width:100%;height:100%;object-fit:contain;border-radius:inherit;">
+                    </div>
+                    <div class="logo-text">Clify</div>
+                </a>
+                <div class="version-badge" id="versionLabel">v16.0.0</div>
+            </div>
+            <div class="header-right">
+                <button class="control-btn" id="refreshBtn">
+                    <i class="ti ti-refresh"></i>
+                    <span id="refresh-text">Refresh</span>
+                </button>
+                <select class="control-btn" id="lang">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                    <option value="de">German</option>
+                    <option value="it">Italian</option>
+                    <option value="pt">Portuguese</option>
+                    <option value="zh">Chinese</option>
+                    <option value="ja">Japanese</option>
+                    <option value="ko">Korean</option>
+                    <option value="ru">Russian</option>
+                    <option value="bn">Bangla</option>
+                    <option value="hi">Hindi</option>
+                    <option value="ar">Arabic</option>
+                    <option value="tr">Turkish</option>
+                    <option value="vi">Vietnamese</option>
+                    <option value="th">Thai</option>
+                    <option value="id">Indonesian</option>
+                    <option value="ms">Malay</option>
+                    <option value="uk">Ukrainian</option>
+                    <option value="pl">Polish</option>
+                    <option value="nl">Dutch</option>
+                    <option value="sv">Swedish</option>
+                    <option value="no">Norwegian</option>
+                    <option value="da">Danish</option>
+                    <option value="fi">Finnish</option>
+                    <option value="cs">Czech</option>
+                    <option value="ro">Romanian</option>
+                    <option value="he">Hebrew</option>
+                    <option value="ur">Urdu</option>
+                    <option value="ta">Tamil</option>
+                    <option value="te">Telugu</option>
+                    <option value="sw">Swahili</option>
+                </select>
+                <button class="control-btn" id="mode">
+                    <i class="ti ti-moon"></i>
+                    <span id="theme-text">Theme</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="tabs-container">
+            <nav class="tabs">
+                <a href="#" class="tab active" data-tab="dash">
+                    <i class="ti ti-chart-bar"></i>
+                    <span id="tab-dash">Dashboard</span>
+                </a>
+                <a href="#" class="tab" data-tab="blocked">
+                    <i class="ti ti-ban"></i>
+                    <span id="tab-blocked">Blocked</span>
+                    <span class="tab-badge" id="blockedCount">0</span>
+                </a>
+                <a href="#" class="tab" data-tab="protection">
+                    <i class="ti ti-shield"></i>
+                    <span id="tab-protection">Protection</span>
+                </a>
+                <a href="#" class="tab" data-tab="stats">
+                    <i class="ti ti-chart-bar"></i>
+                    <span id="tab-stats">Stats</span>
+                </a>
+                <div class="ad-blocker-badge" id="adBlockerBadge"><i class="ti ti-shield"></i> Ad Blocker ON</div>
+            </nav>
+        </div>
+
+        <!-- ==================== DASHBOARD SECTION ==================== -->
+        <section id="dash" class="section active">
+            <div class="section-header">
+                <h1 id="welcome-title">Welcome to Clify!</h1>
+                <p id="welcome-subtitle">Take control of your YouTube experience by blocking unwanted content automatically</p>
+            </div>
+            <div class="welcome-card">
+                <div class="welcome-content">
+                    <div class="welcome-stats">
+                        <div class="welcome-stat">
+                            <div class="stat-icon"><i class="ti ti-clock-share"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="kpi_today">0</div>
+                                <div class="stat-label" id="stat-today">Today's Blocks</div>
+                            </div>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon"><i class="ti ti-chart-bar"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="kpi_total">0</div>
+                                <div class="stat-label" id="stat-total">Total Blocked</div>
+                            </div>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon"><i class="ti ti-shield-check"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="blockingRate">0%</div>
+                                <div class="stat-label" id="stat-efficiency">Block Rate</div>
+                            </div>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon"><i class="ti ti-device-mobile"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="shortsBlockedKpi">0</div>
+                                <div class="stat-label" id="stat-shorts-kpi">Shorts Blocked</div>
+                            </div>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon"><i class="ti ti-player-skip-forward"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="sponsorBlockKpi">0</div>
+                                <div class="stat-label" id="stat-sponsor-kpi">SponsorBlock Skips</div>
+                            </div>
+                        </div>
+                        <div class="welcome-stat">
+                            <div class="stat-icon"><i class="ti ti-hand-stop"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="manualBlocksKpi">0</div>
+                                <div class="stat-label" id="stat-manual-kpi">Manual Blocks</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="analytics-grid">
+                <div class="analytics-main">
+                    <div class="analytics-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title" id="activity-title">Activity</h3>
+                                <p class="card-subtitle" id="activity-subtitle">Last 30 days</p>
+                            </div>
+                        </div>
+                        <div class="activity-bars" id="activityBars"></div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item stat-item-keywords">
+                            <div class="stat-icon"><i class="ti ti-sparkles"></i></div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="activeKeywords">0</div>
+                                <div class="stat-label" id="stat-keywords">Active Keywords</div>
+                            </div>
+                        </div>
+                        <div class="stat-item stat-item-manual">
+                            <div class="stat-icon"><i class="ti ti-hand-stop"></i></div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="manualBlocksCount">0</div>
+                                <div class="stat-label" id="stat-manual">Manual Blocks</div>
+                            </div>
+                        </div>
+                        <div class="stat-item stat-item-auto">
+                            <div class="stat-icon"><i class="ti ti-sparkles"></i></div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="autoBlocksCount">0</div>
+                                <div class="stat-label" id="stat-auto">Keyword Blocks</div>
+                            </div>
+                        </div>
+                        <div class="stat-item stat-item-shorts">
+                            <div class="stat-icon"><i class="ti ti-device-mobile"></i></div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="shortsBlocksCount">0</div>
+                                <div class="stat-label" id="stat-shorts">Shorts Blocked</div>
+                            </div>
+                        </div>
+                        <div class="stat-item stat-item-channels">
+                            <div class="stat-icon"><i class="ti ti-users"></i></div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="channelBlocksCount">0</div>
+                                <div class="stat-label" id="stat-channels">Channels Blocked</div>
+                            </div>
+                        </div>
+                        <div class="stat-item stat-item-ads">
+                            <div class="stat-icon"><i class="ti ti-badge-ad-off"></i></div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="adsBlockedCount">0</div>
+                                <div class="stat-label" id="stat-ads">Ads Blocked</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="recent-card">
+                    <div class="card-header">
+                        <h3 class="card-title" id="recent-title">Recently Blocked</h3>
+                        <button class="control-btn small" id="viewAllBtn">
+                            <span id="view-all-btn">View All</span>
+                            <i class="ti ti-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div class="recent-list" id="recentList"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== BLOCKED VIDEOS SECTION ==================== -->
+        <section id="blocked" class="section">
+            <div class="section-header">
+                <h1 id="blocked-title">Blocked</h1>
+                <p id="blocked-subtitle">Manage all your blocked content from one place</p>
+            </div>
+            <div class="sub-tabs">
+                <a href="#" class="sub-tab active" data-subtab="videos"><i class="ti ti-video"></i> <span id="subtab-videos-label">Videos</span></a>
+                <a href="#" class="sub-tab" data-subtab="channels"><i class="ti ti-users"></i> <span id="subtab-channels-label">Channels</span></a>
+                <a href="#" class="sub-tab" data-subtab="keywords"><i class="ti ti-sparkles"></i> <span id="subtab-keywords-label">Keywords</span></a>
+                <a href="#" class="sub-tab" data-subtab="watchlater"><i class="ti ti-clock"></i> <span id="subtab-watchlater-label">Watch Later</span></a>
+            </div>
+            <div class="sub-tab-panel active" data-subtab="videos">
+            <div class="capacity-display" id="capacityDisplay"></div>
+            <div class="controls-bar">
+                <div class="search-container">
+                    <div class="search-input-wrapper">
+                        <i class="ti ti-search search-icon"></i>
+                        <input type="text" id="search" class="search-input" data-placeholder="search-placeholder" placeholder="Search by title, ID, reason, or date...">
+                        <button class="clear-search" id="clearSearch"><i class="ti ti-x"></i></button>
+                        <div class="search-suggestions" id="searchSuggestions"></div>
+                    </div>
+                </div>
+                <div class="filter-controls">
+                    <select id="reasonFilter" class="filter-select">
+                        <option value="all" id="filter-all">All Reasons</option>
+                        <option value="manual" id="filter-manual">Manual Block</option>
+                        <option value="keyword" id="filter-keyword">Keyword Match</option>
+                        <option value="shorts" id="filter-shorts">Shorts</option>
+                        <option value="language" id="filter-language">Language</option>
+                    </select>
+                    <select id="sortFilter" class="filter-select">
+                        <option value="newest" id="sort-newest">Newest First</option>
+                        <option value="oldest" id="sort-oldest">Oldest First</option>
+                        <option value="title" id="sort-title">Title A-Z</option>
+                    </select>
+                    <div class="search-results-info" id="resultsInfo">
+                        <span class="results-count" id="resultsCount">0</span>
+                        <span class="results-text" id="results-text">videos</span>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn secondary" id="btnExport"><i class="ti ti-download"></i><span id="export-btn">Export</span></button>
+                    <button class="action-btn danger" id="btnUnblockAll"><i class="ti ti-trash"></i><span id="clear-all-btn">Clear All</span></button>
+                </div>
+            </div>
+            <div class="quick-filters">
+                <div class="quick-filter" data-filter="date" data-value="today"><i class="ti ti-calendar"></i> <span id="qf-today">Today</span></div>
+                <div class="quick-filter" data-filter="reason" data-value="manual"><i class="ti ti-hand-click"></i> <span id="qf-manual">Manual Blocks</span></div>
+                <div class="quick-filter" data-filter="reason" data-value="shorts"><i class="ti ti-device-mobile"></i> <span id="qf-shorts">Shorts</span></div>
+                <div class="quick-filter" data-filter="reason" data-value="keyword"><i class="ti ti-sparkles"></i> <span id="qf-keyword">Keyword Blocks</span></div>
+            </div>
+            <div class="table-container">
+                <table class="videos-table">
+                    <thead>
+                        <tr>
+                            <th class="col-title" id="col-title">Video Title</th>
+                            <th class="col-id" id="col-id">Video ID</th>
+                            <th class="col-reason" id="col-reason">Reason</th>
+                            <th class="col-date" id="col-date">Date Blocked</th>
+                            <th class="col-actions" id="col-actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videosTableBody"></tbody>
+                </table>
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p id="loading-text">Loading your blocked videos...</p>
+                </div>
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon"><i class="ti ti-inbox"></i></div>
+                    <h3 id="empty-title">No videos blocked yet</h3>
+                    <p id="empty-subtitle">Start cleaning up your YouTube experience by blocking unwanted videos</p>
+                    <button class="action-btn primary" id="emptyActionBtn">
+                        <i class="ti ti-plus"></i>
+                        <span id="empty-action">Add Keywords for Auto-Blocking</span>
+                    </button>
+                </div>
+            </div>
+            <div class="pagination-container" id="paginationContainer">
+                <div class="pagination-info" id="paginationInfo">
+                    Showing <span id="currentRange">0-0</span> of <span id="totalVideos">0</span> videos
+                </div>
+                <div class="pagination-controls">
+                    <button class="pagination-btn" id="firstPage" data-title-key="pagination-first" title="First page"><i class="ti ti-chevrons-left"></i></button>
+                    <button class="pagination-btn" id="prevPage" data-title-key="pagination-prev" title="Previous page"><i class="ti ti-chevron-left"></i></button>
+                    <div class="page-numbers" id="pageNumbers"></div>
+                    <button class="pagination-btn" id="nextPage" data-title-key="pagination-next" title="Next page"><i class="ti ti-chevron-right"></i></button>
+                    <button class="pagination-btn" id="lastPage" data-title-key="pagination-last" title="Last page"><i class="ti ti-chevrons-right"></i></button>
+                </div>
+                <div class="pagination-options">
+                    <span>Show:</span>
+                    <select id="pageSizeSelect" class="page-size-select">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    <span>per page</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-tab-panel" data-subtab="channels">
+            <div class="section-header">
+                <h1 id="channels-title">Channel Manager</h1>
+                <p id="channels-subtitle">Block or whitelist entire YouTube channels from your feed</p>
+            </div>
+
+            <div class="chm-summary-row">
+                <div class="chm-summary-card chm-blocked">
+                    <div class="chm-summary-icon"><i class="ti ti-ban"></i></div>
+                    <div class="chm-summary-data">
+                        <span class="chm-summary-count" id="blockedChannelsCount">0</span>
+                        <span class="chm-summary-label" id="chm-blocked-label">Blocked</span>
+                    </div>
+                </div>
+                <div class="chm-summary-card chm-whitelisted">
+                    <div class="chm-summary-icon"><i class="ti ti-shield-check"></i></div>
+                    <div class="chm-summary-data">
+                        <span class="chm-summary-count" id="whitelistedChannelsCount">0</span>
+                        <span class="chm-summary-label" id="chm-whitelisted-label">Whitelisted</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chm-panel chm-panel-blocked">
+                <div class="chm-panel-header">
+                    <div class="chm-panel-title">
+                        <span class="chm-dot chm-dot-blocked"></span>
+                        <span id="channel-blocked-title">Blocked Channels</span>
+                    </div>
+                    <span class="chm-panel-count" id="blockedChannelsCountBadge">0</span>
+                </div>
+                <p id="channel-blocked-desc" class="chm-panel-desc">All videos from these channels will be automatically hidden from your feed.</p>
+
+                <div class="chm-input-row">
+                    <div class="chm-input-wrapper">
+                        <i class="ti ti-link chm-input-icon"></i>
+                        <input type="text" id="addChannelInput" class="chm-input" data-placeholder="channel-add-placeholder" placeholder="Paste channel URL, @handle, or name...">
+                    </div>
+                    <button class="chm-btn chm-btn-block" id="addChannelBtn"><i class="ti ti-plus"></i> <span id="channel-add-btn">Block</span></button>
+                </div>
+
+                <div class="chm-list" id="blockedChannelsList"></div>
+
+                <div class="chm-empty" id="blockedChannelsEmpty">
+                    <div class="chm-empty-icon"><i class="ti ti-user-off"></i></div>
+                    <p id="channel-empty-blocked">No channels blocked yet</p>
+                    <span class="chm-empty-hint">Add a channel URL or @handle above</span>
+                </div>
+            </div>
+
+            <div class="chm-panel chm-panel-whitelisted">
+                <div class="chm-panel-header">
+                    <div class="chm-panel-title">
+                        <span class="chm-dot chm-dot-whitelisted"></span>
+                        <span id="channel-whitelist-title">Whitelisted Channels</span>
+                    </div>
+                    <span class="chm-panel-count" id="whitelistedChannelsCountBadge">0</span>
+                </div>
+                <p id="channel-whitelist-desc" class="chm-panel-desc">These channels will never be blocked, even if they match your keywords or filters.</p>
+
+                <div class="chm-input-row">
+                    <div class="chm-input-wrapper">
+                        <i class="ti ti-shield-check chm-input-icon"></i>
+                        <input type="text" id="addWhitelistInput" class="chm-input" data-placeholder="channel-whitelist-placeholder" placeholder="Paste channel URL, @handle, or name...">
+                    </div>
+                    <button class="chm-btn chm-btn-whitelist" id="addWhitelistBtn"><i class="ti ti-plus"></i> <span id="channel-whitelist-btn">Whitelist</span></button>
+                </div>
+
+                <div class="chm-list" id="whitelistedChannelsList"></div>
+
+                <div class="chm-empty" id="whitelistedChannelsEmpty">
+                    <div class="chm-empty-icon"><i class="ti ti-shield"></i></div>
+                    <p id="channel-empty-whitelist">No channels whitelisted</p>
+                    <span class="chm-empty-hint">Add channels you trust above</span>
+                </div>
+            </div>
+
+            <div class="feature-actions">
+                <button class="action-btn danger" id="clearAllChannels"><i class="ti ti-trash"></i> <span id="clear-all-channels">Clear All Blocked Channels</span></button>
+            </div>
+        </div>
+
+        <div class="sub-tab-panel" data-subtab="keywords">
+            <div class="section-header">
+                <h1 id="keywords-title">Keyword Manager</h1>
+                <p id="keywords-subtitle">Automatically block videos containing specific keywords or phrases</p>
+            </div>
+            <div class="keywords-container">
+                <div class="keywords-editor">
+                    <div class="kw-editor-header">
+                        <div class="kw-editor-title"><i class="ti ti-pencil"></i> <span id="kw-editor-label">Keywords</span></div>
+                        <div class="kw-stats-inline">
+                            <span class="kw-stat"><span class="kw-stat-val" id="keywordCount">0</span> <span class="kw-stat-lbl" id="keywords-count-label">keywords</span></span>
+                            <span class="kw-stat-sep"></span>
+                            <span class="kw-stat"><span class="kw-stat-val" id="keywords-format-value">One per line</span></span>
+                        </div>
+                    </div>
+                    <textarea id="kw" class="keywords-textarea" data-placeholder="kw-placeholder" placeholder="Enter keywords or phrases (one per line or separated by commas)&#10;Example:&#10;react video&#10;unboxing&#10;prank challenge"></textarea>
+                    <div class="keywords-actions">
+                        <button class="action-btn primary" id="saveKw"><i class="ti ti-device-floppy"></i><span id="save-keywords">Save Keywords</span></button>
+                        <button class="action-btn secondary" id="clearKw"><i class="ti ti-trash"></i><span id="clear-keywords">Clear All</span></button>
+                    </div>
+                </div>
+                <div class="keywords-help">
+                    <div class="khelp-header">
+                        <h4><i class="ti ti-help-circle"></i><span id="help-title">How to use keywords</span></h4>
+                        <a href="https://pastebin.com/V0Qss8X6" target="_blank" class="kpb-tiny" id="keywordPackBadge" title="Keyword Pack by Editor Pick">
+                            <i class="ti ti-sparkles"></i>
+                        </a>
+                    </div>
+                    <ul>
+                        <li id="help-line1">Enter one keyword per line or separate with commas</li>
+                        <li id="help-line2">Use specific phrases for better accuracy</li>
+                        <li id="help-line3">Keywords are case-insensitive.</li>
+                        <li id="help-line4">Supports multiple languages: English, Arabic, Hindi, Bangla, etc.</li>
+                        <li id="help-line5">Use pipe | for synonyms: movie|film|cinema|picture</li>
+                        <li id="help-line6">Maximum 5000+ keywords supported</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-tab-panel" data-subtab="watchlater">
+            <div class="section-header">
+                <h1 id="watchlater-title">Watch Later Queue</h1>
+                <p id="watchlater-subtitle">Your curated queue — bypass the algorithm</p>
+            </div>
+            <div class="wl-topbar">
+                <div class="wl-count" id="watchLaterCount">0</div>
+                <div class="wl-actions">
+                    <button class="action-btn primary" id="playWatchLaterBtn"><i class="ti ti-player-play"></i> <span id="play-queue-btn">Play Queue</span></button>
+                    <button class="action-btn danger" id="clearWatchLaterBtn"><i class="ti ti-trash"></i> <span id="clear-queue-btn">Clear All</span></button>
+                </div>
+            </div>
+            <div class="watch-later-list" id="watchLaterList"></div>
+            <div class="empty-state wl-empty" id="watchLaterEmpty">
+                <div class="empty-icon"><i class="ti ti-clock-off"></i></div>
+                <h3 id="watchlater-empty-title">Queue is empty</h3>
+                <p id="watchlater-empty-subtitle">Click the clock icon on any video to add it here</p>
+            </div>
+        </div>
+        </section>
+
+        <!-- ==================== PROTECTION SECTION (AD BLOCKER + ENHANCED + LANGUAGE) ==================== -->
+        <section id="protection" class="section">
+            <div class="section-header">
+                <h1 id="protection-title"><i class="ti ti-shield"></i> Protection</h1>
+                <p id="protection-subtitle">Ad blocking, enhanced features, and language filtering</p>
+            </div>
+            <div class="sub-tabs">
+                <a href="#" class="sub-tab active" data-subtab="protection-adblocker"><i class="ti ti-shield"></i> <span id="subtab-adblocker-label">Ad Blocker</span></a>
+                <a href="#" class="sub-tab" data-subtab="protection-enhanced"><i class="ti ti-sparkles"></i> <span id="subtab-enhanced-label">More Features</span></a>
+                <a href="#" class="sub-tab" data-subtab="protection-language"><i class="ti ti-language"></i> <span id="subtab-language-label">Language</span></a>
+            </div>
+
+        <div class="sub-tab-panel active" data-subtab="protection-adblocker">
+        <section id="adblocker">
+            <div class="section-header">
+                <h1 id="adblocker-title"><i class="ti ti-shield"></i> Native Ad Blocker</h1>
+                <p id="adblocker-subtitle">Built-in ad blocker powered by Clify. No external extensions needed.</p>
+            </div>
+
+            <div class="ad-blocker-status-card analytics-card" id="adBlockerStatusCard">
+                <div class="ad-blocker-hero">
+                    <div class="ad-shield-icon" id="adShieldIcon">
+                        <i class="ti ti-shield"></i>
+                    </div>
+                    <div class="ad-status-info">
+                        <h2 id="adBlockerStatusText">Ad Blocker is Active</h2>
+                        <p id="adBlockerStatusDesc">All YouTube ads, trackers, and analytics are being blocked</p>
+                    </div>
+                    <div class="ad-status-actions">
+                        <button class="info-trigger" id="howItWorksTrigger" title="How it works">
+                            <i class="ti ti-help"></i>
+                        </button>
+                        <label class="toggle-switch large">
+                            <input type="checkbox" id="toggleAdBlocker" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="how-it-works-popover" id="howItWorksPopover">
+                    <div class="hiw-header">
+                        <i class="ti ti-sparkles"></i>
+                        <span id="ad-how-it-works">How Clify Ad Blocker Works</span>
+                    </div>
+                    <div class="hiw-steps">
+                        <div class="hiw-step">
+                            <div class="hiw-step-num">1</div>
+                            <div class="hiw-step-text">
+                                <h4 id="ad-how-step1">Network-Level Blocking</h4>
+                                <p id="ad-how-step1-desc">Blocks ad network requests at the browser level using declarativeNetRequest rules</p>
+                            </div>
+                        </div>
+                        <div class="hiw-step">
+                            <div class="hiw-step-num">2</div>
+                            <div class="hiw-step-text">
+                                <h4 id="ad-how-step2">DOM Element Removal</h4>
+                                <p id="ad-how-step2-desc">Removes ad containers, overlays, and banners directly from the YouTube page</p>
+                            </div>
+                        </div>
+                        <div class="hiw-step">
+                            <div class="hiw-step-num">3</div>
+                            <div class="hiw-step-text">
+                                <h4 id="ad-how-step3">Request Interception</h4>
+                                <p id="ad-how-step3-desc">Intercepts fetch/XHR requests to ad analytics and tracking endpoints</p>
+                            </div>
+                        </div>
+                        <div class="hiw-step">
+                            <div class="hiw-step-num">4</div>
+                            <div class="hiw-step-text">
+                                <h4 id="ad-how-step4">Auto Skip Engine</h4>
+                                <p id="ad-how-step4-desc">Automatically clicks skip buttons and fast-forwards unskippable ads</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ad-blocker-stats-grid">
+                <div class="analytics-card ad-stat-card">
+                    <div class="ad-stat-icon"><i class="ti ti-ad"></i></div>
+                    <div class="ad-stat-value" id="adBlockerAdsBlocked">0</div>
+                    <div class="ad-stat-label" id="ad-stat-ads">Ads Blocked</div>
+                </div>
+                <div class="analytics-card ad-stat-card">
+                    <div class="ad-stat-icon"><i class="ti ti-chart-bar"></i></div>
+                    <div class="ad-stat-value" id="adBlockerBannerRemoved">0</div>
+                    <div class="ad-stat-label" id="ad-stat-banners">Banners Removed</div>
+                </div>
+                <div class="analytics-card ad-stat-card">
+                    <div class="ad-stat-icon"><i class="ti ti-player-skip-forward"></i></div>
+                    <div class="ad-stat-value" id="adBlockerSkipped">0</div>
+                    <div class="ad-stat-label" id="ad-stat-skipped">Ads Auto-Skipped</div>
+                </div>
+                <div class="analytics-card ad-stat-card">
+                    <div class="ad-stat-icon"><i class="ti ti-lock"></i></div>
+                    <div class="ad-stat-value" id="adBlockerRules">0</div>
+                    <div class="ad-stat-label" id="ad-stat-rules">Active Rules</div>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-ad"></i> <span id="ad-video-ads">Video Ads</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleVideoAds" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="ad-video-ads-desc">Block pre-roll, mid-roll, and post-roll video ads on YouTube</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-eye-off"></i> <span id="ad-display-ads">Display Ads</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleDisplayAds" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="ad-display-ads-desc">Remove banner ads, sidebar ads, and promotional overlays</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-player-skip-forward"></i> <span id="ad-auto-skip">Auto Skip</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleAutoSkip" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="ad-auto-skip-desc">Automatically click skip buttons and fast-forward unskippable ads</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-ban"></i> <span id="ad-trackers">Tracker Block</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleTrackerBlock" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="ad-trackers-desc">Block Google Analytics, DoubleClick, and third-party tracking scripts</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-message-off"></i> <span id="ad-annotations">Annotation Block</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleAnnotationBlock" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="ad-annotations-desc">Remove info cards, end screens, and video annotations</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-chart-circles"></i> <span id="ad-surveys">Survey Block</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleSurveyBlock" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="ad-surveys-desc">Block YouTube ad surveys, polls, and promotional banners</p>
+                </div>
+            </div>
+
+            <div class="feature-actions">
+                <button class="action-btn primary" id="saveAdBlockerSettings"><i class="ti ti-device-floppy"></i> <span id="save-adblocker-settings">Save Settings</span></button>
+            </div>
+        </section>
+        </div>
+
+        <div class="sub-tab-panel" data-subtab="protection-enhanced">
+        <section id="enhanced">
+            <div class="section-header">
+                <h1 id="enhanced-title">More Features</h1>
+                <p id="enhanced-subtitle">Enhanced YouTube experience with additional controls</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-device-mobile"></i> <span id="feature-shorts-removal">Shorts Removal</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleShorts" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="feature-shorts-removal-desc">Automatically remove all YouTube Shorts from your feed, navigation, and search results</p>
+                    <div class="feature-stats">
+                        <div class="stat"><span class="stat-value" id="shortsBlocked">0</span><span class="stat-label" id="stat-shorts-removed">Shorts Removed</span></div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-eye-off"></i> <span id="feature-blur-mode">Blur Blocked Videos</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleBlurMode">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="feature-blur-mode-desc">Instead of hiding blocked videos, blur them with a hover-to-reveal effect</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-focus"></i> <span id="feature-focus-mode">Focus Mode</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleFocusMode">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="feature-focus-mode-desc">Hide comments, recommendations sidebar, and description for a clean watching experience</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-clock"></i> <span id="feature-schedule">Scheduled Blocking</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleSchedule">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="feature-schedule-desc">Enable blocking only during specific hours of the day</p>
+                    <div class="schedule-controls" id="scheduleControls" style="display: none;">
+                        <div class="control-group">
+                            <label id="schedule-start-label">Start Hour:</label>
+                            <select id="scheduleStart">
+                                <option value="0">12:00 AM</option>
+                                <option value="6">6:00 AM</option>
+                                <option value="8">8:00 AM</option>
+                                <option value="9">9:00 AM</option>
+                                <option value="12">12:00 PM</option>
+                                <option value="17">5:00 PM</option>
+                                <option value="20">8:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label id="schedule-end-label">End Hour:</label>
+                            <select id="scheduleEnd">
+                                <option value="12">12:00 PM</option>
+                                <option value="17">5:00 PM</option>
+                                <option value="20">8:00 PM</option>
+                                <option value="22">10:00 PM</option>
+                                <option value="24">12:00 AM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-player-play"></i> <span id="feature-playback">Playback Controls</span></h4>
+                    </div>
+                    <div class="playback-controls">
+                        <div class="control-group">
+                            <label for="playbackSpeed" id="playback-speed-label">Playback Speed:</label>
+                            <select id="playbackSpeed">
+                                <option value="0.25">0.25x</option>
+                                <option value="0.5">0.5x</option>
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1x (Normal)</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="1.75">1.75x</option>
+                                <option value="2">2x</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleTheaterMode">
+                                <span class="checkmark"></span>
+                                <span id="theater-mode-label">Always use theater mode</span>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleAutoPlay">
+                                <span class="checkmark"></span>
+                                <span id="autoplay-label">Disable auto-play next video</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-clock"></i> <span id="feature-experience">Experience</span></h4>
+                    </div>
+                    <div class="feature-description" id="feature-experience-desc">Enhance your watching experience with these tools</div>
+                    <div class="enhanced-toggles">
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleHideTrending">
+                                <span class="checkmark"></span>
+                                <span id="feature-hide-trending">Hide Trending / Explore</span>
+                            </label>
+                        </div>
+                        <p class="feature-description" id="feature-hide-trending-desc">Remove trending and explore sections from sidebar</p>
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleAutoConfirmPause">
+                                <span class="checkmark"></span>
+                                <span id="feature-auto-confirm">Auto-Confirm "Continue watching?"</span>
+                            </label>
+                        </div>
+                        <p class="feature-description" id="feature-auto-confirm-desc">Automatically dismiss the video paused dialog so videos never stop</p>
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleReadingMode">
+                                <span class="checkmark"></span>
+                                <span id="feature-reading-mode">Reading Mode</span>
+                            </label>
+                        </div>
+                        <p class="feature-description" id="feature-reading-mode-desc">Hides comments, sidebar, recommendations, and other distractions — only the video and title remain</p>
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="togglePipButton">
+                                <span class="checkmark"></span>
+                                <span id="feature-pip-button">Picture-in-Picture Button</span>
+                            </label>
+                        </div>
+                        <p class="feature-description" id="feature-pip-button-desc">Add a PiP button to the video player for always-on-top viewing</p>
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleKeyboardShortcuts">
+                                <span class="checkmark"></span>
+                                <span id="feature-keyboard-shortcuts">Keyboard Shortcuts</span>
+                            </label>
+                        </div>
+                        <p class="feature-description" id="feature-keyboard-shortcuts-desc">Alt+B = Block video, Alt+F = Focus mode, Alt+P = PiP, Alt+M = Mute tab</p>
+                        <div id="shortcutConfigPanel" style="display:none; margin-top:10px; padding:12px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:8px;">
+                            <p style="font-size:11px; font-weight:600; margin-bottom:8px; color:var(--text-secondary);" id="shortcut-config-title">Custom Shortcuts (click to change):</p>
+                            <div class="shortcut-grid" id="shortcutGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:6px;"></div>
+                        </div>
+                        <div class="control-group">
+                            <label for="volumeBoostLevel" id="volume-boost-label">Volume Boost:</label>
+                            <select id="volumeBoostLevel">
+                                <option value="100" selected>100% (Normal)</option>
+                                <option value="125">125%</option>
+                                <option value="150">150%</option>
+                                <option value="175">175%</option>
+                                <option value="200">200% (Max)</option>
+                            </select>
+                        </div>
+                        <p class="feature-description" id="feature-volume-boost-desc">Boost audio volume beyond YouTube's 100% limit</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-wave-square"></i> <span id="feature-audio-eq">Audio Equalizer</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleAudioEqualizer">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="feature-audio-eq-desc">5-band audio equalizer with presets to customize sound output</p>
+                    <div id="eqPanel" style="display:none; margin-top:12px;">
+                        <div class="eq-presets" style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:12px;">
+                            <button class="eq-preset-btn" data-preset="flat" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Flat</button>
+                            <button class="eq-preset-btn" data-preset="music" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Music</button>
+                            <button class="eq-preset-btn" data-preset="voice" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Voice</button>
+                            <button class="eq-preset-btn" data-preset="bass" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Bass Boost</button>
+                            <button class="eq-preset-btn" data-preset="treble" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Treble</button>
+                            <button class="eq-preset-btn" data-preset="cinema" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Cinema</button>
+                            <button class="eq-preset-btn" data-preset="gaming" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Gaming</button>
+                            <button class="eq-preset-btn" data-preset="podcast" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Podcast</button>
+                            <button class="eq-preset-btn" data-preset="loudness" style="padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.04); color:var(--text-secondary); font-size:11px; cursor:pointer; transition:all 0.2s;">Loudness</button>
+                        </div>
+                        <div class="eq-sliders" style="display:flex; gap:8px; justify-content:center; align-items:flex-end; padding:8px 0;">
+                            <div class="eq-band" style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <input type="range" class="eq-slider" data-band="0" min="-12" max="12" value="0" step="1" orient="vertical" style="writing-mode:vertical-lr; direction:rtl; width:32px; height:100px; accent-color:#C1F11D;">
+                                <span class="eq-band-label" style="font-size:9px; color:var(--text-secondary);">60Hz</span>
+                                <span class="eq-band-value" style="font-size:9px; color:var(--text-primary); font-weight:600;">0dB</span>
+                            </div>
+                            <div class="eq-band" style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <input type="range" class="eq-slider" data-band="1" min="-12" max="12" value="0" step="1" orient="vertical" style="writing-mode:vertical-lr; direction:rtl; width:32px; height:100px; accent-color:#C1F11D;">
+                                <span class="eq-band-label" style="font-size:9px; color:var(--text-secondary);">250Hz</span>
+                                <span class="eq-band-value" style="font-size:9px; color:var(--text-primary); font-weight:600;">0dB</span>
+                            </div>
+                            <div class="eq-band" style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <input type="range" class="eq-slider" data-band="2" min="-12" max="12" value="0" step="1" orient="vertical" style="writing-mode:vertical-lr; direction:rtl; width:32px; height:100px; accent-color:#C1F11D;">
+                                <span class="eq-band-label" style="font-size:9px; color:var(--text-secondary);">1kHz</span>
+                                <span class="eq-band-value" style="font-size:9px; color:var(--text-primary); font-weight:600;">0dB</span>
+                            </div>
+                            <div class="eq-band" style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <input type="range" class="eq-slider" data-band="3" min="-12" max="12" value="0" step="1" orient="vertical" style="writing-mode:vertical-lr; direction:rtl; width:32px; height:100px; accent-color:#C1F11D;">
+                                <span class="eq-band-label" style="font-size:9px; color:var(--text-secondary);">4kHz</span>
+                                <span class="eq-band-value" style="font-size:9px; color:var(--text-primary); font-weight:600;">0dB</span>
+                            </div>
+                            <div class="eq-band" style="display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                <input type="range" class="eq-slider" data-band="4" min="-12" max="12" value="0" step="1" orient="vertical" style="writing-mode:vertical-lr; direction:rtl; width:32px; height:100px; accent-color:#C1F11D;">
+                                <span class="eq-band-label" style="font-size:9px; color:var(--text-secondary);">12kHz</span>
+                                <span class="eq-band-value" style="font-size:9px; color:var(--text-primary); font-weight:600;">0dB</span>
+                            </div>
+                        </div>
+                        <p style="font-size:10px; color:var(--text-secondary); text-align:center; margin-top:4px;" id="eq-preset-label">Preset: Flat</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-player-skip-forward"></i> <span id="feature-smart">Smart Player</span></h4>
+                    </div>
+                    <div class="feature-description" id="feature-smart-desc">Intelligent playback features powered by community data</div>
+                    <div class="enhanced-toggles">
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleSkipSponsors">
+                                <span class="checkmark"></span>
+                                <span id="feature-skip-sponsors">SponsorBlock</span>
+                            </label>
+                        </div>
+                        <p class="feature-description" id="feature-skip-sponsors-desc">Skip sponsor, intro, outro, and self-promo segments using community data</p>
+                        <div id="sponsorBlockOptions" style="display:none; margin-top:10px; padding-left:8px; border-left:2px solid #C1F11D; margin-left:4px;">
+                            <p style="font-size:11px; font-weight:600; margin-bottom:6px; color:var(--text-secondary);" id="sb-categories-title">Categories to skip:</p>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 12px;">
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catSponsor" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#C1F11D;margin-right:4px;"></span>
+                                    <span id="sb-cat-sponsor">Sponsor</span>
+                                </label>
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catSelfpromo" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#F5A623;margin-right:4px;"></span>
+                                    <span id="sb-cat-selfpromo">Self-Promo</span>
+                                </label>
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catInteraction" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4A90D9;margin-right:4px;"></span>
+                                    <span id="sb-cat-interaction">Interaction</span>
+                                </label>
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catIntro" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#9B59B6;margin-right:4px;"></span>
+                                    <span id="sb-cat-intro">Intro</span>
+                                </label>
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catOutro" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E74C3C;margin-right:4px;"></span>
+                                    <span id="sb-cat-outro">Outro</span>
+                                </label>
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catPreview" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2ECC71;margin-right:4px;"></span>
+                                    <span id="sb-cat-preview">Preview</span>
+                                </label>
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catHook" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#00BCD4;margin-right:4px;"></span>
+                                    <span id="sb-cat-hook">Hook</span>
+                                </label>
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catFiller" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#7E57C2;margin-right:4px;"></span>
+                                    <span id="sb-cat-filler">Filler</span>
+                                </label>
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="catMusicOfftopic" checked>
+                                    <span class="checkmark"></span>
+                                    <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#95A5A6;margin-right:4px;"></span>
+                                    <span id="sb-cat-music">Non-Music</span>
+                                </label>
+                            </div>
+                            <div style="margin-top:10px; display:flex; flex-direction:column; gap:4px;">
+                                <label class="checkbox-label" style="font-size:12px;">
+                                    <input type="checkbox" id="toggleSponsorOverlay" checked>
+                                    <span class="checkmark"></span>
+                                    <span id="sb-overlay-label">Show colored segment bars on progress bar</span>
+                                </label>
+                            </div>
+                            <div style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border-color);">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="toggleContentDensity" checked>
+                                    <span class="checkmark"></span>
+                                    <span id="feature-content-density">Content Density Meter</span>
+                                </label>
+                                <p class="feature-description" id="feature-content-density-desc">Show a badge under the channel name with the percentage of actual content vs sponsors/promos/filler</p>
+                            </div>
+                        </div>
+                        <div class="control-group" style="margin-top:12px;">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleForceQuality">
+                                <span class="checkmark"></span>
+                                <span id="feature-force-quality">Force Video Quality</span>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label for="preferredQuality" id="preferred-quality-label">Preferred Quality:</label>
+                            <select id="preferredQuality">
+                                <option value="2160">2160p (4K)</option>
+                                <option value="1440">1440p (2K)</option>
+                                <option value="1080" selected>1080p (Full HD)</option>
+                                <option value="720">720p (HD)</option>
+                                <option value="480">480p</option>
+                                <option value="360">360p</option>
+                            </select>
+                        </div>
+                        <p class="feature-description" id="feature-force-quality-desc">Automatically set your preferred video quality on every video</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-message-off"></i> <span id="feature-hide-comments">Hide Comments</span></h4>
+                    </div>
+                    <div class="enhanced-toggles">
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleHideComments">
+                                <span class="checkmark"></span>
+                                <span id="feature-hide-comments-label">Hide all YouTube comments</span>
+                            </label>
+                        </div>
+                        <p class="feature-description" id="feature-hide-comments-desc">Completely hides the comments section, comment button, and comment count on all YouTube videos</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-crosshair"></i> <span id="feature-element-picker">Element Picker</span></h4>
+                    </div>
+                    <div class="enhanced-toggles">
+                        <div class="control-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="toggleElementPicker">
+                                <span class="checkmark"></span>
+                                <span id="feature-element-picker-label">Enable Element Picker</span>
+                            </label>
+                        </div>
+                        <p class="feature-description" id="feature-element-picker-desc">Click any element on YouTube to permanently hide it. Press Escape to cancel.</p>
+                        <div id="customSelectorsList" style="margin-top:10px; max-height:200px; overflow-y:auto;"></div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-device-tv"></i> <span id="feature-live-cleaner">Live Stream Cleaner</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleLiveStreamCleaner" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="feature-live-cleaner-desc">Clean up live streams by hiding chat, super chats, donation alerts, and member milestones</p>
+                    <div id="liveCleanerOptions" style="margin-top:10px; padding-left:8px; border-left:2px solid #ef4444; margin-left:4px;">
+                        <div class="control-group">
+                            <label class="checkbox-label" style="font-size:12px;">
+                                <input type="checkbox" id="lcHideChat" checked>
+                                <span class="checkmark"></span>
+                                <span id="lc-hide-chat">Hide Live Chat</span>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label class="checkbox-label" style="font-size:12px;">
+                                <input type="checkbox" id="lcHideSuperChat" checked>
+                                <span class="checkmark"></span>
+                                <span id="lc-hide-superchat">Hide Super Chats & Donations</span>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label class="checkbox-label" style="font-size:12px;">
+                                <input type="checkbox" id="lcHideMembers" checked>
+                                <span class="checkmark"></span>
+                                <span id="lc-hide-members">Hide Member Milestones</span>
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label class="checkbox-label" style="font-size:12px;">
+                                <input type="checkbox" id="lcHideTicker" checked>
+                                <span class="checkmark"></span>
+                                <span id="lc-hide-ticker">Hide Chat Ticker</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <h4><i class="ti ti-certificate-off"></i> <span id="feature-age-gate">Age-Gate Bypass</span></h4>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleAgeGateBypass" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="feature-description" id="feature-age-gate-desc">Automatically bypass age verification overlays and restricted content prompts on YouTube</p>
+                </div>
+            </div>
+            <div class="feature-actions">
+                <button class="action-btn primary" id="saveEnhancedFeatures"><i class="ti ti-device-floppy"></i><span id="save-enhanced-btn">Save All Settings</span></button>
+                <button class="action-btn secondary" id="resetEnhancedFeatures"><i class="ti ti-rotate"></i><span id="reset-enhanced-btn">Reset to Defaults</span></button>
+            </div>
+        </section>
+        </div>
+
+        <div class="sub-tab-panel" data-subtab="protection-language">
+            <div class="section-header">
+                <h1><i class="ti ti-language"></i> <span id="feature-language-block">Language Filter</span></h1>
+                <p id="language-block-subtitle">Block videos that aren't in your selected languages</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-header">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="toggleLanguageBlock">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="feature-description" id="feature-language-block-desc">Detection is based on Unicode script analysis of video titles and descriptions.</div>
+                <div class="lang-selector-panel" id="langSelectorPanel">
+                    <p class="lang-selector-label" id="lang-select-label">Select languages to allow:</p>
+                    <div class="lang-grid">
+                        <label class="lang-chip"><input type="checkbox" value="en" checked><span class="lang-chip-text">English</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="bn" checked><span class="lang-chip-text">Bangla</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="hi" checked><span class="lang-chip-text">Hindi</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="ar"><span class="lang-chip-text">Arabic</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="es"><span class="lang-chip-text">Spanish</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="pt"><span class="lang-chip-text">Portuguese</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="fr"><span class="lang-chip-text">French</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="de"><span class="lang-chip-text">German</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="ru"><span class="lang-chip-text">Russian</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="ja"><span class="lang-chip-text">Japanese</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="ko"><span class="lang-chip-text">Korean</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="zh"><span class="lang-chip-text">Chinese</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="ta"><span class="lang-chip-text">Tamil</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="te"><span class="lang-chip-text">Telugu</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="kn"><span class="lang-chip-text">Kannada</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="ml"><span class="lang-chip-text">Malayalam</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="gu"><span class="lang-chip-text">Gujarati</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="pa"><span class="lang-chip-text">Punjabi</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="th"><span class="lang-chip-text">Thai</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="tr"><span class="lang-chip-text">Turkish</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="it"><span class="lang-chip-text">Italian</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="id"><span class="lang-chip-text">Indonesian</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="vi"><span class="lang-chip-text">Vietnamese</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="he"><span class="lang-chip-text">Hebrew</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="el"><span class="lang-chip-text">Greek</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="ka"><span class="lang-chip-text">Georgian</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="hy"><span class="lang-chip-text">Armenian</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="my"><span class="lang-chip-text">Burmese</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="km"><span class="lang-chip-text">Khmer</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="lo"><span class="lang-chip-text">Lao</span></label>
+                        <label class="lang-chip"><input type="checkbox" value="et"><span class="lang-chip-text">Ethiopic</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- ==================== USAGE STATS SECTION ==================== -->
+        <section id="usage" class="section">
+            <div class="section-header">
+                <h1 id="usage-title">Usage Stats</h1>
+                <p id="usage-subtitle">Track your YouTube habits and time saved</p>
+            </div>
+            <div class="usage-grid" id="usageGrid">
+                <div class="usage-card">
+                    <div class="usage-icon"><i class="ti ti-clock"></i></div>
+                    <div class="usage-info">
+                        <div class="usage-value" id="usageTimeToday">0m</div>
+                        <div class="usage-label" id="usage-time-today">Time on YouTube Today</div>
+                    </div>
+                </div>
+                <div class="usage-card">
+                    <div class="usage-icon" style="color:#22c55e"><i class="ti ti-shield-check"></i></div>
+                    <div class="usage-info">
+                        <div class="usage-value" id="usageAdsBlocked">0</div>
+                        <div class="usage-label" id="usage-ads-blocked">Ads Blocked</div>
+                    </div>
+                </div>
+                <div class="usage-card">
+                    <div class="usage-icon" style="color:#3b82f6"><i class="ti ti-device-mobile"></i></div>
+                    <div class="usage-info">
+                        <div class="usage-value" id="usageShortsBlocked">0</div>
+                        <div class="usage-label" id="usage-shorts-blocked">Shorts Blocked</div>
+                    </div>
+                </div>
+                <div class="usage-card">
+                    <div class="usage-icon" style="color:#a855f7"><i class="ti ti-player-skip-forward"></i></div>
+                    <div class="usage-info">
+                        <div class="usage-value" id="usageSponsorsSkipped">0</div>
+                        <div class="usage-label" id="usage-sponsors-skipped">Sponsors Skipped</div>
+                    </div>
+                </div>
+                <div class="usage-card">
+                    <div class="usage-icon" style="color:#06b6d4"><i class="ti ti-clock-heart"></i></div>
+                    <div class="usage-info">
+                        <div class="usage-value" id="usageTimeSaved">0m</div>
+                        <div class="usage-label" id="usage-time-saved">Time Saved</div>
+                    </div>
+                </div>
+                <div class="usage-card">
+                    <div class="usage-icon" style="color:#f97316"><i class="ti ti-video"></i></div>
+                    <div class="usage-info">
+                        <div class="usage-value" id="usageVideosWatched">0</div>
+                        <div class="usage-label" id="usage-videos-watched">Videos Watched</div>
+                    </div>
+                </div>
+            </div>
+            <div class="analytics-card" style="margin-top:16px;">
+                <div class="card-header">
+                    <h3 class="card-title" id="usage-weekly-title">This Week</h3>
+                </div>
+                <div class="usage-weekly-chart" id="usageWeeklyChart"></div>
+            </div>
+            <div class="feature-actions">
+                <button class="action-btn secondary" id="resetUsageBtn"><i class="ti ti-rotate"></i> <span id="reset-usage-btn">Reset Stats</span></button>
+            </div>
+        </section>
+
+        <footer class="footer" id="officialFooter" data-protected="true">
+            <p><i class="ti ti-heart" style="color:#ef4444"></i> <span id="footer-made">Made for a focused YouTube experience</span></p>
+            <div class="footer-bottom-row">
+                <p id="copyright-text" class="copyright">&copy; 2026 Clify &mdash; Dipto Design Studio. All rights reserved.</p>
+                <div class="footer-tooltip-wrapper">
+                    <span class="footer-info-trigger"><i class="ti ti-bolt"></i> <span id="developer-info-label">About Clify</span></span>
+                    <div class="footer-tooltip">
+                    <div class="ftt-header">
+                        <div class="ftt-logo ftt-logo-animate">
+                            <img src="logo.png" alt="Clify" style="width:100%;height:100%;object-fit:contain;border-radius:inherit;">
+                        </div>
+                        <div class="ftt-header-info">
+                            <strong>Clify</strong> <span class="ftt-badge">v16.0.0</span>
+                            <p class="ftt-subtitle">YouTube Content Blocker</p>
+                        </div>
+                        <div class="ftt-verified-badge"><i class="ti ti-certificate"></i>Official</div>
+                    </div>
+
+                    <div class="ftt-section">
+                        <div class="ftt-section-title"><i class="ti ti-building"></i> The Company</div>
+                        <div class="ftt-row">
+                            <i class="ti ti-sparkles"></i>
+                            <span>Dipto Design Studio</span>
+                        </div>
+                        <div class="ftt-row">
+                            <i class="ti ti-mail"></i>
+                            <a href="mailto:diptodesignstd@gmail.com">diptodesignstd@gmail.com</a>
+                        </div>
+                        <div class="ftt-row">
+                            <i class="ti ti-external-link"></i>
+                            <a href="https://diptodesign.github.io/clifydl/" target="_blank">clifydl</a>
+                        </div>
+                        <div class="ftt-row">
+                            <i class="ti ti-download"></i>
+                            <a href="https://github.com/diptodesign/Clify/releases" target="_blank">Latest Version</a>
+                        </div>
+                    </div>
+
+                    <div class="ftt-divider"></div>
+
+                    <!-- 1. What's New -->
+                    <div class="ftt-collapsible">
+                        <button class="ftt-toggle" type="button">
+                            <i class="ti ti-sparkles"></i>
+                            <span>What's New in v15</span>
+                            <i class="ti ti-chevron-down ftt-chevron"></i>
+                        </button>
+                        <div class="ftt-toggle-content">
+                            <div class="ftt-wn-highlight">
+                                <div class="ftt-wn-highlight-icon"><i class="ti ti-rocket"></i></div>
+                                <div class="ftt-wn-highlight-text">
+                                    <strong>v16.0.0</strong>
+                                    <span>Ad Blocker upgraded to uBlock Origin level</span>
+                                </div>
+                            </div>
+                            <div class="ftt-wn-grid">
+                                <div class="ftt-wn-card">
+                                    <div class="ftt-wn-icon"><i class="ti ti-shield"></i></div>
+                                    <div class="ftt-wn-info">
+                                        <span class="ftt-wn-name">uBlock-level Ad Blocker</span>
+                                        <span class="ftt-wn-desc">300+ declarativeNetRequest rules, scriptlet injection, anti-adblock bypass</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-wn-card">
+                                    <div class="ftt-wn-icon"><i class="ti ti-eye"></i></div>
+                                    <div class="ftt-wn-info">
+                                        <span class="ftt-wn-name">MutationObserver</span>
+                                        <span class="ftt-wn-desc">Real-time ad detection with debounced DOM watching</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-wn-card">
+                                    <div class="ftt-wn-icon"><i class="ti ti-player-skip-forward"></i></div>
+                                    <div class="ftt-wn-info">
+                                        <span class="ftt-wn-name">SponsorBlock Default ON</span>
+                                        <span class="ftt-wn-desc">Skip sponsors enabled by default for new installs</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-wn-card">
+                                    <div class="ftt-wn-icon"><i class="ti ti-device-tv"></i></div>
+                                    <div class="ftt-wn-info">
+                                        <span class="ftt-wn-name">Live Stream Cleaner</span>
+                                        <span class="ftt-wn-desc">Hide chat, Super Chat, members & tickers on live streams</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-wn-card">
+                                    <div class="ftt-wn-icon"><i class="ti ti-code"></i></div>
+                                    <div class="ftt-wn-info">
+                                        <span class="ftt-wn-name">Scriptlet Injection</span>
+                                        <span class="ftt-wn-desc">Neutralize ad-blocker detection & prevent nag popups</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-wn-card">
+                                    <div class="ftt-wn-icon"><i class="ti ti-filter"></i></div>
+                                    <div class="ftt-wn-info">
+                                        <span class="ftt-wn-name">Procedural Filtering</span>
+                                        <span class="ftt-wn-desc">Text content matching & promoted search card removal</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ftt-wn-footer">
+                                <span class="ftt-wn-fix"><i class="ti ti-bug"></i> 32-language encoding fixes</span>
+                                <span class="ftt-wn-fix"><i class="ti ti-mood-smile"></i> Tabler Icons bundled locally</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Legal & Policies -->
+                    <div class="ftt-collapsible">
+                        <button class="ftt-toggle" type="button">
+                            <i class="ti ti-scale"></i>
+                            <span>Legal & Policies</span>
+                            <i class="ti ti-chevron-down ftt-chevron"></i>
+                        </button>
+                        <div class="ftt-toggle-content">
+                            <div class="ftt-donate-region">
+                                <button class="ftt-toggle-sub" type="button">
+                                    <span><i class="ti ti-heart-handshake" style="margin-right:6px;color:var(--primary);"></i>Open Source</span>
+                                    <i class="ti ti-chevron-down ftt-chevron-sub"></i>
+                                </button>
+                                <div class="ftt-toggle-sub-content">
+                                    <ul class="ftt-list">
+                                        <li>Clify is <strong>100% free and open source</strong>. No premium tiers, no paywalls.</li>
+                                        <li>You are free to use, study, share, and modify this software under its license.</li>
+                                        <li>Contributions are welcome — report bugs, suggest features, or submit code on GitHub.</li>
+                                        <li>Translations, documentation improvements, and community help are always appreciated.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ftt-donate-region">
+                                <button class="ftt-toggle-sub" type="button">
+                                    <span><i class="ti ti-shield-lock" style="margin-right:6px;color:var(--primary);"></i>Privacy</span>
+                                    <i class="ti ti-chevron-down ftt-chevron-sub"></i>
+                                </button>
+                                <div class="ftt-toggle-sub-content">
+                                    <ul class="ftt-list">
+                                        <li>Zero data collection — no analytics, no trackers, no telemetry.</li>
+                                        <li>All data (blocked videos, keywords, settings) stays <strong>local</strong> on your device.</li>
+                                        <li>The only optional network call is to the SponsorBlock API for community segment data.</li>
+                                        <li>No accounts, no sign-ups, no personal information ever required.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ftt-donate-region">
+                                <button class="ftt-toggle-sub" type="button">
+                                    <span><i class="ti ti-license" style="margin-right:6px;color:var(--primary);"></i>License</span>
+                                    <i class="ti ti-chevron-down ftt-chevron-sub"></i>
+                                </button>
+                                <div class="ftt-toggle-sub-content">
+                                    <p class="ftt-text" style="padding:8px 20px 12px;">Clify is released under an open source license. You may use, study, share, and modify the code. Unauthorized rebranding or distributing modified versions under a different name without permission is not permitted.</p>
+                                </div>
+                            </div>
+                            <div class="ftt-donate-region">
+                                <button class="ftt-toggle-sub" type="button">
+                                    <span><i class="ti ti-alert-triangle" style="margin-right:6px;color:var(--primary);"></i>Disclaimer</span>
+                                    <i class="ti ti-chevron-down ftt-chevron-sub"></i>
+                                </button>
+                                <div class="ftt-toggle-sub-content">
+                                    <ul class="ftt-list">
+                                        <li>Clify is provided <strong>"as is"</strong> without warranty of any kind.</li>
+                                        <li>YouTube content and trademarks belong to Google LLC. Clify is not affiliated with YouTube/Google.</li>
+                                        <li>Always download from the official Chrome Web Store or the developer's GitHub.</li>
+                                        <li>If you received this from elsewhere, it may have been tampered with.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Donate -->
+                    <div class="ftt-collapsible">
+                        <button class="ftt-toggle ftt-donate-toggle" type="button">
+                            <i class="ti ti-heart"></i>
+                            <span>Donate</span>
+                            <i class="ti ti-chevron-down ftt-chevron"></i>
+                        </button>
+                        <div class="ftt-toggle-content">
+                            <p class="ftt-text" style="padding:12px 20px 4px;">Clify is free and will always remain free. If you find it useful, consider supporting the development. Your donations help keep the project alive and fund new features.</p>
+
+                            <div class="ftt-donate-quick">
+                                <a href="https://buymeacoffee.com/diptodesign100" target="_blank" class="ftt-donate-btn ftt-donate-coffee"><i class="ti ti-coffee"></i> Buy Me a Coffee</a>
+                                <a href="https://ko-fi.com/diptodesignz" target="_blank" class="ftt-donate-btn ftt-donate-kofi"><i class="ti ti-heart"></i> Ko-fi</a>
+                            </div>
+
+                            <div class="ftt-donate-region">
+                                <button class="ftt-toggle-sub" type="button">
+                                    <span><i class="ti ti-device-mobile" style="margin-right:6px;color:var(--primary);"></i>Local Payment (Bangladesh)</span>
+                                    <i class="ti ti-chevron-down ftt-chevron-sub"></i>
+                                </button>
+                                <div class="ftt-toggle-sub-content">
+                                    <div class="ftt-pay-list">
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon bkash">b</div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">bKash</span>
+                                                <span class="ftt-pay-type">Send Money &middot; Cash Out</span>
+                                            </div>
+                                            <span class="ftt-pay-hint">Contact for info</span>
+                                        </div>
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon nagad">N</div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">Nagad</span>
+                                                <span class="ftt-pay-type">Send Money &middot; Cash Out</span>
+                                            </div>
+                                            <span class="ftt-pay-hint">Contact for info</span>
+                                        </div>
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon rocket">R</div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">Rocket</span>
+                                                <span class="ftt-pay-type">Send Money &middot; Cash Out</span>
+                                            </div>
+                                            <span class="ftt-pay-hint">Contact for info</span>
+                                        </div>
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon upay">U</div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">Upay</span>
+                                                <span class="ftt-pay-type">Send Money &middot; Cash Out</span>
+                                            </div>
+                                            <span class="ftt-pay-hint">Contact for info</span>
+                                        </div>
+                                    </div>
+                                    <p class="ftt-text" style="padding:0 16px 8px;font-size:9px;opacity:0.5;">Account details will be provided on request.</p>
+                                </div>
+                            </div>
+
+                            <div class="ftt-donate-region">
+                                <button class="ftt-toggle-sub" type="button">
+                                    <span><i class="ti ti-building-bank" style="margin-right:6px;color:var(--primary);"></i>Bank Transfer</span>
+                                    <i class="ti ti-chevron-down ftt-chevron-sub"></i>
+                                </button>
+                                <div class="ftt-toggle-sub-content">
+                                    <div class="ftt-bank-info">
+                                        <div class="ftt-bank-row"><span class="ftt-bank-label">Bank</span><span>Islami Bank Bangladesh PLC</span></div>
+                                        <div class="ftt-bank-row"><span class="ftt-bank-label">Account Title</span><span>DIPTO DAS</span></div>
+                                        <div class="ftt-bank-row"><span class="ftt-bank-label">Account No</span><span class="ftt-copyable" data-copy="20507770206430163">20507770206430163 <i class="ti ti-copy"></i></span></div>
+                                        <div class="ftt-bank-row"><span class="ftt-bank-label">Branch</span><span>Agent Banking</span></div>
+                                        <div class="ftt-bank-row"><span class="ftt-bank-label">Routing No</span><span class="ftt-copyable" data-copy="125270607">125270607 <i class="ti ti-copy"></i></span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ftt-donate-region">
+                                <button class="ftt-toggle-sub" type="button">
+                                    <span><i class="ti ti-world" style="margin-right:6px;color:var(--primary);"></i>International Payments</span>
+                                    <i class="ti ti-chevron-down ftt-chevron-sub"></i>
+                                </button>
+                                <div class="ftt-toggle-sub-content">
+                                    <div class="ftt-pay-list">
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon stripe"><i class="ti ti-credit-card"></i></div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">Stripe</span>
+                                                <span class="ftt-pay-type">Credit Card &middot; Apple Pay &middot; Google Pay</span>
+                                            </div>
+                                            <span class="ftt-pay-hint">Contact for info</span>
+                                        </div>
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon paypal"><i class="ti ti-brand-paypal"></i></div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">PayPal</span>
+                                                <span class="ftt-pay-type">Credit Card &middot; PayPal Balance</span>
+                                            </div>
+                                            <span class="ftt-pay-hint">Contact for info</span>
+                                        </div>
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon payoneer"><i class="ti ti-cash"></i></div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">Payoneer</span>
+                                                <span class="ftt-pay-type">Send to email address</span>
+                                            </div>
+                                            <span class="ftt-pay-hint">Contact for info</span>
+                                        </div>
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon binance"><i class="ti ti-currency-bitcoin"></i></div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">Binance</span>
+                                                <span class="ftt-pay-type">UID: 835991485</span>
+                                            </div>
+                                            <span class="ftt-pay-num">hiredipto@gmail.com</span>
+                                        </div>
+                                        <div class="ftt-pay-row">
+                                            <div class="ftt-pay-icon nsave"><i class="ti ti-wallet"></i></div>
+                                            <div class="ftt-pay-info">
+                                                <span class="ftt-pay-name">nSave</span>
+                                                <span class="ftt-pay-type">Send to @dipto_das</span>
+                                            </div>
+                                            <span class="ftt-pay-hint">Contact for info</span>
+                                        </div>
+                                    </div>
+                                    <p class="ftt-text" style="padding:0 16px 8px;font-size:9px;opacity:0.5;">Account details will be provided on request.</p>
+                                </div>
+                            </div>
+
+                            <p class="ftt-text" style="padding:8px 20px 14px;text-align:center;font-size:10px;opacity:0.6;">Every contribution matters. Thank you for your support!</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. Help -->
+                    <div class="ftt-collapsible">
+                        <button class="ftt-toggle" type="button">
+                            <i class="ti ti-lifebuoy"></i>
+                            <span>Help</span>
+                            <i class="ti ti-chevron-down ftt-chevron"></i>
+                        </button>
+                        <div class="ftt-toggle-content">
+                            <div class="ftt-support-form">
+                                <p class="ftt-text" style="padding:12px 20px 8px;font-size:10px;">Have a question or issue? Send us a message.</p>
+                                <form id="contactForm" style="padding:0 20px 12px;">
+                                    <div class="ftt-form-row">
+                                        <label for="name" id="name-label">Name</label>
+                                        <input type="text" id="name" name="name" required>
+                                    </div>
+                                    <div class="ftt-form-row">
+                                        <label for="email" id="email-label">Email</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                    <div class="ftt-form-row">
+                                        <label for="category" id="category-label">Category</label>
+                                        <select id="category" name="category" required>
+                                            <option value="bug" id="category-bug">Bug Report</option>
+                                            <option value="feature" id="category-feature">Feature Request</option>
+                                            <option value="help" id="category-help">Help Needed</option>
+                                            <option value="suggestion" id="category-suggestion">Suggestion</option>
+                                            <option value="other" id="category-other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="ftt-form-row">
+                                        <label for="message" id="message-label">Message</label>
+                                        <textarea id="message" name="message" rows="3" required data-placeholder="message-placeholder" placeholder="Describe your issue or suggestion..."></textarea>
+                                    </div>
+                                    <button type="submit" class="action-btn primary" id="submitBtn" style="width:100%;margin-top:4px;">
+                                        <span class="btn-text" id="send-message">Send Message</span>
+                                        <span class="btn-loading" style="display:none;"><i class="ti ti-loader icon-spin"></i> <span id="sending-message">Sending...</span></span>
+                                    </button>
+                                    <div class="form-status" id="formStatus"></div>
+                                </form>
+                            </div>
+
+                            <div class="ftt-divider"></div>
+
+                            <div class="ftt-section">
+                                <div class="ftt-section-title"><i class="ti ti-book"></i> How To</div>
+                                <div class="ftt-row"><i class="ti ti-ban"></i><span>Block a video: Click the hide button on any thumbnail</span></div>
+                                <div class="ftt-row"><i class="ti ti-users"></i><span>Block a channel: Use the channel blocker in the Blocked tab</span></div>
+                                <div class="ftt-row"><i class="ti ti-key"></i><span>Filter keywords: Add phrases in the Keywords sub-tab</span></div>
+                                <div class="ftt-row"><i class="ti ti-shield"></i><span>Toggle ad blocker: Enable/disable in the Protection tab</span></div>
+                                <div class="ftt-row"><i class="ti ti-device-mobile"></i><span>Hide Shorts: Toggle in the Protection tab</span></div>
+                                <div class="ftt-row"><i class="ti ti-player-skip-forward"></i><span>Skip sponsors: Enable SponsorBlock in the Protection tab</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Changelog -->
+                    <div class="ftt-collapsible">
+                        <button class="ftt-toggle" type="button">
+                            <i class="ti ti-history"></i>
+                            <span>Changelog</span>
+                            <i class="ti ti-chevron-down ftt-chevron"></i>
+                        </button>
+                        <div class="ftt-toggle-content ftt-changelog">
+                            <div class="ftt-changelog-list">
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge current">v16</span>
+                                    <span class="changelog-subtitle-tag tag-new">Major</span>
+                                    <span>Custom SVG logo, Audio Equalizer (5-band, 9 presets), Age-Gate Bypass, Door+Play logo concept, Footer tooltip morph animation, Custom logo.png branding, FAB logo update</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v15</span>
+                                    <span class="changelog-subtitle-tag tag-new">Major</span>
+                                    <span>Tab merger 8→4, SponsorBlock multi-lang, Badge redesign, Usage Stats, Element Picker, Shortcuts, Watch Later Queue, Reading Mode, Tabler Icons bundled locally</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v12</span>
+                                    <span class="changelog-subtitle-tag tag-new">Major</span>
+                                    <span>SponsorBlock integration, Content Density Meter, Native Ad Blocker, Language Block (32 langs), Channel Manager, Monetization Badge, Dashboard glassmorphism redesign</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v11</span>
+                                    <span class="changelog-subtitle-tag tag-ui">UI</span>
+                                    <span>Dark/Light theme overhaul, Notification system, Landing page v12.0.0, Product Hunt prep</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v10</span>
+                                    <span class="changelog-subtitle-tag tag-new">New</span>
+                                    <span>Volume Boost, Picture-in-Picture, Keyboard Shortcuts, Hide Trending, Auto-Confirm Pause</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v9</span>
+                                    <span class="changelog-subtitle-tag tag-new">New</span>
+                                    <span>Focus Mode, Schedule Blocking, Keyword dashboard</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v8</span>
+                                    <span class="changelog-subtitle-tag tag-new">Major</span>
+                                    <span>Native Ad Blocker, Channel Manager, Tracker blocking, Annotation Block</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v7</span>
+                                    <span class="changelog-subtitle-tag tag-new">New</span>
+                                    <span>Shorts removal, Blur mode, Speed control, Undo toast</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v6</span>
+                                    <span class="changelog-subtitle-tag tag-ui">UI</span>
+                                    <span>Full dashboard, Blocked videos mgmt, Export, Pagination</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v5</span>
+                                    <span class="changelog-subtitle-tag tag-new">New</span>
+                                    <span>5000+ keywords, Multi-language, Pipe syntax, Chips UI</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v4</span>
+                                    <span class="changelog-subtitle-tag tag-new">New</span>
+                                    <span>Script detection, Shorts detection, Video ID tracking</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v3</span>
+                                    <span class="changelog-subtitle-tag tag-ui">UI</span>
+                                    <span>Popup redesign, Dark mode, Notifications, Quick toggles</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v2</span>
+                                    <span class="changelog-subtitle-tag tag-new">New</span>
+                                    <span>Manual blocking, Thumbnail buttons, Storage sync</span>
+                                </div>
+                                <div class="ftt-changelog-row">
+                                    <span class="changelog-badge">v1</span>
+                                    <span class="changelog-subtitle-tag tag-new">Launch</span>
+                                    <span>First extension, Manifest V3, SPA support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Collaboration -->
+                    <div class="ftt-collapsible">
+                        <button class="ftt-toggle" type="button">
+                            <i class="ti ti-world"></i>
+                            <span>Collaboration</span>
+                            <i class="ti ti-chevron-down ftt-chevron"></i>
+                        </button>
+                        <div class="ftt-toggle-content">
+                            <div class="ftt-credits-list">
+                                <div class="ftt-credit-row">
+                                    <i class="ti ti-brand-github"></i>
+                                    <div>
+                                        <span class="ftt-credit-name">GitHub</span>
+                                        <span class="ftt-credit-desc">Code hosting, CI/CD, and community</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-credit-row">
+                                    <i class="ti ti-player-skip-forward"></i>
+                                    <div>
+                                        <span class="ftt-credit-name">SponsorBlock</span>
+                                        <span class="ftt-credit-desc">Community-powered video segment data</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-credit-row">
+                                    <i class="ti ti-mood-smile"></i>
+                                    <div>
+                                        <span class="ftt-credit-name">Tabler Icons</span>
+                                        <span class="ftt-credit-desc">Open source icon library (MIT License)</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-credit-row">
+                                    <i class="ti ti-typography"></i>
+                                    <div>
+                                        <span class="ftt-credit-name">Inter Font</span>
+                                        <span class="ftt-credit-desc">Open source typeface by Rasmus Andersson</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-credit-row">
+                                    <i class="ti ti-world"></i>
+                                    <div>
+                                        <span class="ftt-credit-name">Community Contributors</span>
+                                        <span class="ftt-credit-desc">Translations, bug reports, and feedback</span>
+                                    </div>
+                                </div>
+                                <div class="ftt-credit-row">
+                                    <i class="ti ti-brand-chrome"></i>
+                                    <div>
+                                        <span class="ftt-credit-name">Chrome Extensions API</span>
+                                        <span class="ftt-credit-desc">Manifest V3 platform</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ftt-divider"></div>
+
+                            <p class="ftt-text" style="padding:10px 20px 4px;">Clify is an open source project. We welcome contributions, bug reports, feature suggestions, and translations.</p>
+                            <div class="ftt-collab-links">
+                                <a href="https://diptodesign.github.io/clifydl/" target="_blank" class="ftt-link-btn"><i class="ti ti-brand-github"></i> GitHub</a>
+                                <a href="mailto:diptodesignstd@gmail.com" class="ftt-link-btn"><i class="ti ti-mail"></i> Contact</a>
+                            </div>
+                            <p class="ftt-text" style="padding:6px 20px 14px;text-align:center;font-size:9px;opacity:0.5;">Whether it's code, design, translations, or ideas — we build better tools together.</p>
+                        </div>
+                    </div>
+
+                    <div class="ftt-footer">
+                        <span>&copy; 2026 Dipto Design Studio</span>
+                        <span>All rights reserved</span>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="clifyOfficialRoot" data-official="true" data-developer="Dipto Design Studio" data-email="diptodesignstd@gmail.com" data-website="https://diptodesign.github.io/clifydl/" data-year="2026" style="display: none;"></div>
+
+    <script src="attribution.js"></script>
+
+    <button class="back-to-top" id="backToTop" title="Back to Top"><i class="ti ti-chevron-up"></i></button>
+    <div id="notificationContainer" class="notification-container"></div>
+    <button class="fab" id="quickActions" title="Quick Actions"><img src="logo.png" alt="Clify" style="width:36px;height:36px;object-fit:contain;border-radius:50%;"></button>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
+

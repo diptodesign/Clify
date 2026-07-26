@@ -1,0 +1,67 @@
+{
+  "manifest_version": 3,
+  "name": "Clify",
+  "short_name": "Clify Official",
+  "version": "16.0.0",
+  "default_locale": "en",
+  
+  "author": "Dipto Design Studio | DiptoDesignStd@gmail.com | https://diptodesign.github.io/clifydl/",
+  "homepage_url": "https://diptodesign.github.io/clifydl/",
+  
+  "description": "Open source YouTube content blocker. Take back control of your YouTube experience. by diptodesign",
+  
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  
+  "permissions": [
+    "storage",
+    "scripting",
+    "tabs",
+    "notifications",
+    "alarms",
+    "declarativeNetRequest"
+  ],
+  
+  "host_permissions": [
+    "*://www.youtube.com/*",
+    "https://diptodesign.github.io/clifydl/*",
+    "https://clifyz.onrender.com/*",
+    "http://localhost:3000/*"
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "options_page": "dashboard.html",
+  
+  "action": {
+    "default_title": "Clify Official v16.0.0 - Dipto Design Studio",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  
+  "web_accessible_resources": [{
+    "resources": ["icons/*", "fonts/*", "vendor/*", "dashboard.html", "attribution.js", "admin/*"],
+    "matches": ["<all_urls>"]
+  }],
+  
+  "version_name": "16.0.0-OFFICIAL-DD",
+  "minimum_chrome_version": "88"
+}
