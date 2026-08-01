@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-16.0.0-brightgreen" alt="Version">
+  <img src="https://img.shields.io/badge/Version-17.0.0-brightgreen" alt="Version">
   <img src="https://img.shields.io/badge/Open%20Source-MIT-blue" alt="MIT License">
   <img src="https://img.shields.io/badge/Manifest-V3-yellow" alt="Manifest V3">
   <img src="https://img.shields.io/badge/32%20Languages-Supported-red" alt="32 Languages">
@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-  <a href="https://diptodesign.github.io/clifydl">Landing Page</a> ·
+  <a href="https://diptodesign.github.io/clify">Landing Page</a> ·
   <a href="https://github.com/diptodesign/Clify/releases">Download</a> ·
   <a href="https://www.producthunt.com/products/clify-formerly-zap">Product Hunt</a>
 </p>
@@ -29,11 +29,13 @@
 
 ### 5-Layer Ad Blocker
 uBlock Origin-level protection built specifically for YouTube.
-- **Layer 1**: `declarativeNetRequest` — 300+ static filter rules (block, redirect, header modify)
-- **Layer 2**: DOM removal — Scans every 600ms for 180+ ad selectors across 15 categories
-- **Layer 3**: Network interception — `fetch`/`XHR` hook with 120+ ad domains + 20+ regex URL patterns
+- **Layer 1**: `declarativeNetRequest` — 593+ static filter rules (412 ad domains + 181 YouTube ad URL patterns)
+- **Layer 2**: DOM removal — Scans every 600ms for 238 ad selectors across 15 categories
+- **Layer 3**: Network interception — `fetch`/`XHR` hook with 135 ad domains + 29 regex URL patterns
 - **Layer 4**: Scriptlet injection — Anti-adblock bypass, ad detection flag overrides, nag popup blocking
-- **Layer 5**: Procedural cosmetic filtering — Text-content-based element hiding
+- **Layer 5**: Procedural cosmetic filtering — Text-content-based element hiding + 227 remote cosmetic selectors
+
+**Remote filter lists** — On install, Clify syncs `clify-filters.txt` (uBlock Origin / AdGuard style): **1,272 network rules + 227 cosmetic selectors**, refreshed every 12 hours with a bundled offline fallback. No manual updates required.
 
 ### Shorts Remover
 Completely removes YouTube Shorts from your feed, sidebar, search results, and dedicated tab. Reclaims your attention from algorithmic short-form content.
@@ -120,18 +122,32 @@ English, Spanish, French, German, Italian, Portuguese, Arabic, Hindi, Bengali, C
 
 ---
 
+## Downloads
+
+| Version | Chrome / Chromium (MV3) | Firefox |
+|---------|------------------------|---------|
+| **v17.0.0** (latest) | [`clify-v17.0.0-chrome.zip`](https://github.com/diptodesign/Clify/releases) | [`clify-v17.0.0-firefox.zip`](https://github.com/diptodesign/Clify/releases) / [`clify-firefox-v17.0.0.xpi`](https://github.com/diptodesign/Clify/releases) |
+
+> Both builds share the same v17.0.0 codebase and features. The Chrome build uses the Chromium MV3 API (`chrome.*`), the Firefox build uses the WebExtensions API (`browser.*`) for full AMO compatibility.
+
 ## Installation
 
 ### Manual Install (Chrome / Chromium)
-1. Download the [latest release](https://github.com/diptodesign/Clify/releases) ZIP
+1. Download [**clify-v17.0.0-chrome.zip**](https://github.com/diptodesign/Clify/releases)
 2. Extract the ZIP file
 3. Open `chrome://extensions/`
 4. Enable **Developer mode** (top right toggle)
 5. Click **Load unpacked** and select the extracted folder
 6. Pin the extension and open the dashboard
 
+### Firefox / Firefox Android
+1. Download [**clify-firefox-v17.0.0.xpi**](https://github.com/diptodesign/Clify/releases) (or the `clify-v17.0.0-firefox.zip` for manual loading)
+2. Open `about:debugging#/runtime/this-firefox`
+3. Click **Load Temporary Add-on** and select the `manifest.json` from the extracted ZIP
+4. For permanent install, submit the XPI to [addons.mozilla.org](https://addons.mozilla.org)
+
 ### Android (Kiwi Browser / Quetta Browser)
-1. Download the release ZIP on your phone
+1. Download [**clify-v17.0.0-chrome.zip**](https://github.com/diptodesign/Clify/releases) on your phone
 2. Extract using a file manager
 3. Open Kiwi or Quetta Browser → `chrome://extensions/`
 4. Enable Developer mode → **Load unpacked** → select the folder
@@ -145,10 +161,11 @@ Chrome, Edge, Brave, Opera, Vivaldi, Arc, Kiwi, Quetta, Firefox, Firefox Android
 ## Project Structure
 
 ```
-Clify 21 C/
+Clify 21 C/                  # Chrome / Chromium build (MV3, chrome.* API)
 ├── manifest.json          # Manifest V3 configuration
-├── background.js          # Service worker, declarativeNetRequest rules, notifications
+├── background.js          # Service worker, declarativeNetRequest rules, notifications, remote filter sync
 ├── content.js             # YouTube content script (ad blocker, features, DOM manipulation)
+├── clify-filters.txt      # Remote filter list (1,272 network rules + 227 cosmetic selectors, uBO/AG style)
 ├── dashboard.html         # Dashboard UI (4 tabs, 32 language blocks)
 ├── dashboard.css          # Dashboard styles (dark/light theme, glassmorphism)
 ├── dashboard.js           # Dashboard logic, settings persistence, i18n system
@@ -163,6 +180,9 @@ Clify 21 C/
 ├── DEVELOPER.txt          # Developer info
 ├── LEGAL.md               # Legal notices
 └── PRIVACY.md             # Privacy policy
+
+Clify 21 C Firefox/         # Firefox build (WebExtensions, browser.* API, AMO-ready)
+├── (same structure, browser.* API)
 ```
 
 ---
@@ -182,8 +202,8 @@ Clify respects your privacy:
 
 | Component | Technology |
 |-----------|-----------|
-| Platform | Chrome Extension (Manifest V3) |
-| Ad Blocking | `declarativeNetRequest` + DOM removal + `fetch`/XHR interception + scriptlet injection |
+| Platform | Chrome Extension (Manifest V3, `chrome.*`) + Firefox WebExtensions (`browser.*`) |
+| Ad Blocking | `declarativeNetRequest` + DOM removal + `fetch`/XHR interception + scriptlet injection + remote uBO/AG filter lists (12h auto-refresh) |
 | Audio | Web Audio API (5 `BiquadFilterNode` bands) |
 | SponsorBlock | REST API with 3-URL fallback chain |
 | UI Framework | Vanilla JS, CSS Custom Properties |
@@ -213,6 +233,7 @@ We welcome contributions:
 
 | Version | Highlights |
 |---------|-----------|
+| **v17.0.0** | uBO/AG-level ad-block expansion (593+ DNR rules, 238 DOM selectors, 412 ad domains), remote filter lists (1,272 network + 227 cosmetic, 12h auto-refresh), Fake Channel Block (16 handles + 61 patterns + custom list), YouTube toast notifications, Support Ticket System (global + per-user IDs, system diagnostics) |
 | **v16.0.0** | Age-Gate Bypass, Audio Equalizer (5-band, 9 presets), Live Stream Cleaner, custom logo, footer tooltip morph animation |
 | **v15.0.0** | Sub-tabs in Blocked & Protection tabs, Usage Stats redesign, Watch Later empty state, Mojibake encoding fixes |
 | **v14.0.0** | Content Density Meter, Monetization Badge, Language Block (22 scripts), PiP Button, Channel blocking overlays |
