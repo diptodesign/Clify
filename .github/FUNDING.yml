@@ -1,15 +1,7 @@
 # These are supported funding model platforms
 
 github: [diptodesign]
-patreon: diptodesign
-open_collective:
 ko_fi: diptodesignz
-tidelift:
-community_bridge:
-liberapay:
-issuehunt:
-lfx_crowdfunding:
-polar:
 buy_me_a_coffee: diptodesign100
-thanks_dev:
-custom:
+patreon: diptodesign
+custom: ['https://clifyapp.xyz/sponsors']
