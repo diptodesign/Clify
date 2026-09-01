@@ -1,5 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Version-17.0.0-brightgreen" alt="Version">
+  [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink)](https://github.com/sponsors/diptodesign)
   <img src="https://img.shields.io/badge/Open%20Source-MIT-blue" alt="MIT License">
   <img src="https://img.shields.io/badge/Manifest-V3-yellow" alt="Manifest V3">
   <img src="https://img.shields.io/badge/32%20Languages-Supported-red" alt="32 Languages">
