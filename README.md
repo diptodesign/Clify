@@ -4,6 +4,7 @@
   <img src="https://img.shields.io/badge/Manifest-V3-yellow" alt="Manifest V3">
   <img src="https://img.shields.io/badge/32%20Languages-Supported-red" alt="32 Languages">
   <img src="https://img.shields.io/badge/35%2B-Tools-purple" alt="35+ Tools">
+  <a href="https://github.com/sponsors/diptodesign"><img src="https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink" alt="Sponsor"></a>
 </p>
 
 <p align="center">
