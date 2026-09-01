@@ -5,12 +5,13 @@
   <img src="https://img.shields.io/badge/32%20Languages-Supported-red" alt="32 Languages">
   <img src="https://img.shields.io/badge/35%2B-Tools-purple" alt="35+ Tools">
   <a href="https://github.com/sponsors/diptodesign"><img src="https://img.shields.io/badge/Sponsor-%E2%9D%A4-pink" alt="Sponsor"></a>
-  <a href="https://www.paypal.com"><img src="https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal&logoColor=white" alt="Donate"></a>
+  <a href="https://paypal.me/diptodesign98"><img src="https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal&logoColor=white" alt="Donate"></a>
   <a href="https://www.buymeacoffee.com"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black" alt="Buy Me a Coffee"></a>
   <a href="https://ko-fi.com"><img src="https://img.shields.io/badge/Ko--fi-FF5E5B?logo=kofi&logoColor=white" alt="Ko-fi"></a>
-  <img src="https://img.shields.io/github/downloads/DIPTODESIGN/SHIFTCREATIVE/total-blue" alt="Downloads">
-  <img src="https://img.shields.io/github/license/DIPTODESIGN/SHIFTCREATIVE-blue" alt="License">
-   <img src="https://img.shields.io/github/v/release/DIPTODESIGN/SHIFTCREATIVE-brightgreen" alt="Release">
+  <img src="https://img.shields.io/github/downloads/diptodesign/Clify/total-blue" alt="Downloads">
+  <img src="https://img.shields.io/github/license/diptodesign/Clify-blue" alt="License">
+  <img src="https://img.shields.io/github/v/release/diptodesign/Clify-brightgreen" alt="Release">
+
 </p>
 
 <p align="center">
